@@ -37,7 +37,7 @@ class Employee {
 		int getSalary() {
 			return salary;
 		}
-	};
+};
 class Vehicle {
   public:
     string brand = "Ford";
@@ -81,5 +81,6 @@ int main()
 	cout <<"SALARY: "<< myObj.getSalary()<<endl;
 	myCar.honk();
 	cout << myCar.brand + " " + myCar.model;
+	cout <<"-----------------------------------------------"<<endl;
 	return 0;
 }
