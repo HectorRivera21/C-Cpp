@@ -16,7 +16,6 @@ int main()
 		printf("file no open \n");
 		return 0;
 	}
-
 	printf("The values read from the file are: \n\n");
 	fseek(ptr, 0, SEEK_END);
 	if (ftell(ptr) == 0)
