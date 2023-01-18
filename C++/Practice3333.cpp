@@ -11,6 +11,7 @@ void printList(vector<double>X){
 int main()
 {
     vector<double> X;
+    
     X.push_back(15.3);
     X.push_back(8);
     X.push_back(568);
