@@ -22,6 +22,7 @@ class Computer
 		string cpu;
 		int ram;
 		Computer(string x, string y, int z);
+		void nice();
 };
 class Employee {
   private:
@@ -59,6 +60,9 @@ Computer::Computer(string x, string y, int z){
 	gpu = y;
 	ram = z;
 }
+void Computer::nice(){
+	cout<<"nice";
+}
 
 int main()
 {
@@ -82,5 +86,6 @@ int main()
 	myCar.honk();
 	cout << myCar.brand + " " + myCar.model;
 	cout <<"-----------------------------------------------"<<endl;
+	expensive.nice();
 	return 0;
 }
