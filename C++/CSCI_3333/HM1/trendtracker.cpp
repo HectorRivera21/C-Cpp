@@ -80,23 +80,18 @@ void Trendtracker::top_three_trends(vector<string> &T){
         }
         
     }
-    if(max1!=-1){
+    if(max1!=-1)
         T.push_back(trend1);
-    }
-    if(max2 != -1){
+    if(max2 != -1)
         T.push_back(trend2);
-    }
-    if(max3 != -1){
+    if(max3 != -1)
         T.push_back(trend3);
-    }
 
 }
 void Trendtracker::remove(string ht){
-    for(int i = 0; i < E.size(); i++){
-        if (E[i].hashtag == ht){
+    for(int i = 0; i < E.size(); i++)
+        if (E[i].hashtag == ht)
             E.erase(E.begin() + i); 
-        }
-    }
 }
 void Trendtracker::top_k_trends(vector<string> &T, int k){
     T.clear();
