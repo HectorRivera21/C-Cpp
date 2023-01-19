@@ -6,21 +6,28 @@
 
 using namespace std;
 Trendtracker::Trendtracker(){
-    cout<<"hello";
+
 }
 void Trendtracker::insert(string ht){
     Entry e;
+    for(auto i : E){
+        if(i.hashtag == ht){
+            return;
+        }
+    }
+    // how heavy are your dumbells
+    
     e.hashtag = ht;
     e.pop = 0;
-    // how heavy are your dumbells    
     E.push_back(e);
+
 }
 
 int Trendtracker::size(){
     return E.size();
 }
 void Trendtracker::tweeted(string ht){
-    for(auto i: E)
+    for(auto &i: E)
         if(i.hashtag == ht)
             i.pop +=1; 
 }
@@ -85,10 +92,11 @@ void Trendtracker::top_three_trends(vector<string> &T){
 
 }
 void Trendtracker::remove(string ht){
-    for(auto i: E)
-        if (i.hashtag == ht)
-            i.hashtag.pop_back();
-    
+    for(int i = 0; i < E.size(); i++){
+        if (E[i].hashtag == ht){
+            E.erase(E.begin() + i); 
+        }
+    }
 }
 void Trendtracker::top_k_trends(vector<string> &T, int k){
     T.clear();

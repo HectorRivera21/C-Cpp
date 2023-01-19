@@ -1,10 +1,10 @@
-
 #include <cassert>
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
 #include <string>
 #include "trendtracker.h"
+#include "trendtracker.cpp"
 
 using namespace std;
 
@@ -62,6 +62,7 @@ int main()
 	T1.tweeted("#programming");
 	test(T1.popularity("#algorithms") == 0);
 	test(T1.popularity("#cs4all") == 0);
+	// cout<<T1.popularity("#programming")<<endl;
 	test(T1.popularity("#programming") == 1);
 
 	T1.tweeted("#programming");
@@ -286,6 +287,7 @@ int main()
 	T3.remove("#C++");
 	T3.remove("#programming");
 	T3.top_three_trends(R);
+	// cout<<R.size()<<endl;
 	test(R.size() == 2);
 	test(R[0] == "#cs4all");
 	test(R[1] == "#3333");
