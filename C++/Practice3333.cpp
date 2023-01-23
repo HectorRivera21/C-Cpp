@@ -139,7 +139,7 @@ int main()
     /*
         Class Warmup 2
     */
-    cout<<linearSearch(X, 0, X.size(), 8) <<" Linear Search"<<endl;
+    cout<< linearSearch(X, 0, X.size(), 8) <<" Linear Search"<<endl;
 
     cout<< binarySearch(X, 0, X.size(), 4) <<" Binary Search"<<endl;
 
