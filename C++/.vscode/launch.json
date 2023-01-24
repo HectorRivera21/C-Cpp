@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/hecto/Desktop/coding/C-Cpp/C++",
-      "program": "c:/Users/hecto/Desktop/coding/C-Cpp/C++/build/Debug/outDebug",
+      "cwd": "c:/Users/hecto/Desktop/coding/C-Cpp/C++/CSCI_3333",
+      "program": "c:/Users/hecto/Desktop/coding/C-Cpp/C++/CSCI_3333/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

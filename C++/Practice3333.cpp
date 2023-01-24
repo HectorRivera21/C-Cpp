@@ -55,10 +55,10 @@ int binarySearch(vector<double> &X, int start, int end, double key){
     int s = start;
     int e =  end;
     while(s <= e){
-        int mid = (start + end)/2;
+        int mid = (s + e)/2;
         if(X[mid] == key)
             return mid;
-        else if(X[mid] < key)
+        else if(X[mid] > key)
            e = mid-1;
         else
             s = mid+1;
@@ -73,12 +73,13 @@ int RecursiveBinarySearch(vector<double> &X, int start, int end, double key){
     }
     else{
         int mid = (start + end)/2;
+
         if(X[mid] == key)
             return mid;
         else if(X[mid] > key)
-            return binarySearch(X,mid+1,end,key);
+            return RecursiveBinarySearch(X,start,mid-1,key);
         else
-            return binarySearch(X, start, mid-1, key);     
+            return RecursiveBinarySearch(X, mid+1, end, key);     
     }
 }
 
@@ -100,6 +101,7 @@ int main()
     // X.push_back(57);
     // X.push_back(12);
     // X.push_back(53);
+
     X.push_back(1);
     X.push_back(2.3);
     X.push_back(3);
@@ -139,11 +141,11 @@ int main()
     /*
         Class Warmup 2
     */
-    cout<< linearSearch(X, 0, X.size(), 8) <<" Linear Search"<<endl;
+    cout<< linearSearch(X, 0, 12, 8) <<" Linear Search"<<endl;
 
-    cout<< binarySearch(X, 0, X.size(), 4) <<" Binary Search"<<endl;
+    cout<< binarySearch(X, 0, 12, 4) <<" Binary Search"<<endl;
 
-    cout<< RecursiveBinarySearch(X, 0, X.size(), 2.3)<<" Recursive Binary Search";
+    cout<< RecursiveBinarySearch(X, 0, 12, 2.3)<<" Recursive Binary Search";
 
     return 0;
 }
