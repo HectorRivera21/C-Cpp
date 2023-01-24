@@ -8,6 +8,7 @@ using namespace std;
 Trendtracker::Trendtracker(){
 
 }
+//////////////////////////////////////////
 void Trendtracker::insert(string ht){
     Entry e;
     for(auto i : E){
@@ -22,15 +23,17 @@ void Trendtracker::insert(string ht){
     E.push_back(e);
 
 }
-
+//////////////////////////////////////////
 int Trendtracker::size(){
     return E.size();
 }
+//////////////////////////////////////////
 void Trendtracker::tweeted(string ht){
     for(auto &i: E)
         if(i.hashtag == ht)
             i.pop +=1; 
 }
+//////////////////////////////////////////
 int Trendtracker::popularity(string name){
     for(auto i: E)
       if(i.hashtag == name)
@@ -38,6 +41,7 @@ int Trendtracker::popularity(string name){
     return -1;
     
 }
+//////////////////////////////////////////
 string Trendtracker::top_trend(){
     if(E.size()==0){
         return "";
@@ -97,7 +101,7 @@ void Trendtracker::top_k_trends(vector<string> &T, int k){
     T.clear();
     for(int i = 0; i < k && i < E.size();i++){
         int bigPOP = INT_MIN, idx_max = -1;
-        for(int j = 0; j<E.size();j++){
+        for(int j = 0; j < E.size();j++){
             if(E[j].pop> bigPOP){
                 bigPOP = E[j].pop;
                 idx_max = j;
