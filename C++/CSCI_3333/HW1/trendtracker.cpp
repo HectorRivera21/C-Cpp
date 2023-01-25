@@ -1,5 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
 #include <vector>
 #include <string>
 #include "trendtracker.h"
@@ -118,9 +117,9 @@ void Trendtracker::remove(string ht){
 void Trendtracker::top_k_trends(vector<string> &T, int k){
     T.clear();
     for(int i = 0; i < k && i < E.size();i++){
-        int bigPOP = INT_MIN, idx_max = -1;
+        int bigPOP = 0, idx_max = -1;
         for(int j = 0; j < E.size();j++){
-            if(E[j].pop> bigPOP){
+            if(E[j].pop > bigPOP){
                 bigPOP = E[j].pop;
                 idx_max = j;
             }
