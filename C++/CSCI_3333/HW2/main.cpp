@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <string>
 #include "trendtracker.h"
+#include "trendtracker.cpp"
 
 using namespace std;
 

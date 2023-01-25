@@ -11,13 +11,21 @@ Trendtracker::Trendtracker(){
 //////////////////////////////////////////
 void Trendtracker::insert(string ht){
     Entry e;
+    /* 
+        looping through vector provided in class to check if
+        the hashtag is already in the vector if so just return dont do anything
+    */
     for(auto i : E){
         if(i.hashtag == ht){
             return;
         }
     }
     // how heavy are your dumbells
-    
+    /* 
+        e is set to ht
+        e pop is set to 0 since none have been tweeted yet
+        then we push the new entry object into E
+    */
     e.hashtag = ht;
     e.pop = 0;
     E.push_back(e);
@@ -25,18 +33,24 @@ void Trendtracker::insert(string ht){
 }
 //////////////////////////////////////////
 int Trendtracker::size(){
+    // return the size of the vector E
     return E.size();
 }
 //////////////////////////////////////////
 void Trendtracker::tweeted(string ht){
+    // we loop through the vector check if the hashtag is in the vector
     for(auto &i: E)
         if(i.hashtag == ht)
-            i.pop +=1; 
+            //we then increment pop for that hashtag
+            i.pop +=1;
 }
 //////////////////////////////////////////
 int Trendtracker::popularity(string name){
+    //we loop through the vector 
     for(auto i: E)
+     //check if hashtag is equal to name
       if(i.hashtag == name)
+        //then we return the popularity
         return i.pop;
     return -1;
     
@@ -84,6 +98,10 @@ void Trendtracker::top_three_trends(vector<string> &T){
         }
         
     }
+    /* 
+        Add the top 3 trending hashtags to the input 
+        vector T if the max1, max2 and max3 are not -1
+    */
     if(max1!=-1)
         T.push_back(trend1);
     if(max2 != -1)
