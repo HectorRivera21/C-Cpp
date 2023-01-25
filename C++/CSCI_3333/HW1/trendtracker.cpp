@@ -125,7 +125,7 @@ void Trendtracker::top_k_trends(vector<string> &T, int k){
             }
         }
         T.push_back(E[idx_max].hashtag);
-        E[idx_max].pop = INT_MIN;
+        E[idx_max].pop = 0;
     }
     
 }

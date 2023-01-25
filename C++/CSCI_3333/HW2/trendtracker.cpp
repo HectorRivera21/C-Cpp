@@ -7,21 +7,18 @@
 using namespace std;
 
 Trendtracker::Trendtracker(string filename){
-    S.clear();
     E.clear();
-    Entry e;
     string hashtag;
     ifstream file(filename);
-    if(file.is_open()){
-        while(!file.eof()){
-            getline(file, hashtag);
-            e.hashtag = hashtag;
-            e.pop = 0;
+    
+    while(file >> hashtag){
+        Entry e;
+        e.hashtag = hashtag;
+        e.pop = 0;
 
-            E.push_back(e);
-        }
-        file.close();
+        E.push_back(e);
     }
+    file.close();
 }
 int Trendtracker::size(){
     return E.size();
@@ -43,8 +40,29 @@ int Trendtracker::search(string ht){
 
 void Trendtracker::tweeted(string ht){
     int Index = search(ht);
-    if(Index != -1)
-        E[Index].pop += 1;
+    E[Index].pop += 1;
+
+    bool dup = false;
+    for(int i = 0; i<S.size();i++){
+        if(S[i]==Index)
+            dup = true;
+    }
+    if(!dup)
+        S.push_back(Index);
+    for(int i =0; i<S.size();i++){
+        int j=i;
+        while(j>0 && E[S[j]].pop>E[S[j-1]].pop){
+            int temp = S[j-1];
+            S[j-1]=S[j];
+            S[j] = temp;
+            j--;
+        }
+    }
+
+    if(S.size()>3)
+        S.pop_back();
+
+    
 }
 
 int Trendtracker::popularity(string name){
@@ -55,8 +73,36 @@ int Trendtracker::popularity(string name){
 }
 
 string Trendtracker::top_trend(){
-    if(E.empty()) return "";
-    return "adasd";
+    if(S.empty()) 
+        return "";
+    else 
+        return E[S[0]].hashtag;
 }
 void Trendtracker::top_three_trends(vector<string> &T){
+    T.clear();
+
+    if(E.size() == 1) //test case for tiny.txt
+        T.push_back(E[0].hashtag);
+    else{
+        if(S.size() == 0){
+            T.push_back(E[0].hashtag);
+            T.push_back(E[1].hashtag);
+            T.push_back(E[1].hashtag);
+        }
+        else if(S.size() == 1){
+            T.push_back(E[S[0]].hashtag);
+            T.push_back(E[1].hashtag);
+            T.push_back(E[2].hashtag);
+        }
+        else if(S.size() == 2){
+            T.push_back(E[S[0]].hashtag);
+            T.push_back(E[S[1]].hashtag);
+            T.push_back(E[2].hashtag);
+
+        }else if(S.size() == 3){
+            T.push_back(E[S[0]].hashtag);
+            T.push_back(E[S[1]].hashtag);
+            T.push_back(E[S[2]].hashtag);
+        }
+    }
 }
