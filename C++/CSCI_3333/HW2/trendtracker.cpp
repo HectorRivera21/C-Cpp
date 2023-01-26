@@ -39,30 +39,32 @@ int Trendtracker::search(string ht){
 
 
 void Trendtracker::tweeted(string ht){
+    //O(log n)
     int Index = search(ht);
-    E[Index].pop += 1;
+    if(Index != -1){
+        E[Index].pop += 1;
 
-    bool dup = false;
-    for(int i = 0; i<S.size();i++){
-        if(S[i]==Index)
-            dup = true;
-    }
-    if(!dup)
-        S.push_back(Index);
-    for(int i =0; i<S.size();i++){
-        int j=i;
-        while(j>0 && E[S[j]].pop>E[S[j-1]].pop){
-            int temp = S[j-1];
-            S[j-1]=S[j];
-            S[j] = temp;
-            j--;
+        bool dup = false;
+        // O(n)
+        for(int i = 0; i<S.size();i++){
+            if(S[i]==Index)
+                dup = true;
         }
+        if(!dup)
+            S.push_back(Index);
+        for(int i =0; i<S.size();i++){ //O(n)
+            int j=i;
+            while(j>0 && E[S[j]].pop>E[S[j-1]].pop){// O(1)
+                int temp = S[j-1];
+                S[j-1]=S[j];
+                S[j] = temp;
+                j--;
+            }
+        }
+
+        if(S.size()>3)
+            S.pop_back();
     }
-
-    if(S.size()>3)
-        S.pop_back();
-
-    
 }
 
 int Trendtracker::popularity(string name){
