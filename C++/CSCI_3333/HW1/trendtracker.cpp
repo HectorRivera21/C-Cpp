@@ -116,7 +116,7 @@ void Trendtracker::remove(string ht){
 }
 void Trendtracker::top_k_trends(vector<string> &T, int k){
     T.clear();
-    for(int i = 0; i < k && i < E.size();i++){
+    for(int i = 0; i < k ;i++){
         int bigPOP = 0, idx_max = -1;
         for(int j = 0; j < E.size();j++){
             if(E[j].pop > bigPOP){
