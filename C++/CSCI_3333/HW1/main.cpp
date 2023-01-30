@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <chrono>
 #include "trendtracker.h"
 #include "trendtracker.cpp"
 
@@ -28,6 +29,7 @@ int main()
 
 	// Test size(), insert()
 	Trendtracker T1;
+	auto start = chrono::high_resolution_clock::now();
 	test(T1.size() == 0);
 	test(T1.popularity("#algorithms") == -1);
 	test(T1.popularity("#cs4all") == -1);
@@ -346,6 +348,7 @@ int main()
 	test(R[15] == "#me");
 	test(R[29] == "#finishing");
 	test(R[32] == "#quieting");
-
-	cout << "Assignment complete." << endl;
+	auto finish = chrono::high_resolution_clock::now();
+	chrono::duration<double> elapsed = finish-start;
+	cout << "Assignment complete." <<endl <<"took: "<<elapsed.count() << endl;
 }
