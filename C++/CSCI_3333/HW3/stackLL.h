@@ -7,6 +7,12 @@ private:
 	{
 	public:
 		//put what you need in here
+		int val;
+		node* next;
+		node(int n){
+			this->val=n;
+			this->next=nullptr;
+		}
 	};
 
 	node * top;
@@ -14,19 +20,30 @@ private:
 public:
 
 	stackLL()
-	{}
+	{top == nullptr;}
 
 	//Take care of memory leaks...
 	~stackLL()
-	{}
+	{
+		node* temp;
+		while(top != nullptr){
+			temp = top;
+			top = top->next;
+			delete temp;
+		}
+	}
 
 	//return true if empty, false if not
 	bool empty()
-	{}
+	{return top == nullptr ? true : false;}
 
 	//add item to top of stack
 	void push(int x)
-	{}
+	{
+		node* temp = new node(x);
+		temp->next = top;
+		top = temp;
+	}
 
 	//remove and return top item from stack
 	int pop()
