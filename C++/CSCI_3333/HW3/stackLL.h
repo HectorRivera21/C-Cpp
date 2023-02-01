@@ -20,13 +20,14 @@ private:
 public:
 
 	stackLL()
-	{top == nullptr;}
+	{top = NULL;}
+
 
 	//Take care of memory leaks...
 	~stackLL()
 	{
 		node* temp;
-		while(top != nullptr){
+		while(top != NULL){
 			temp = top;
 			top = top->next;
 			delete temp;
@@ -35,7 +36,12 @@ public:
 
 	//return true if empty, false if not
 	bool empty()
-	{return top == nullptr ? true : false;}
+	{
+		if(top == NULL)
+			return true;
+		else
+			return false;
+	}
 
 	//add item to top of stack
 	void push(int x)
@@ -47,7 +53,18 @@ public:
 
 	//remove and return top item from stack
 	int pop()
-	{}
+	{
+		node* del;
+		int temp;
+		if(top==NULL){
+			return -1;
+		}
+		del = top;
+		top = top->next;
+		temp = del->val;
+		delete del;// check wheather free or delete is better
+		return temp;
+	}
 
 	//add item x to stack, but insert it
 	//right after the current ith item from the top

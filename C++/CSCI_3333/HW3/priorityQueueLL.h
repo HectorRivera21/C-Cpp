@@ -1,34 +1,34 @@
 
-template <class T>
-class priorityQueueLL
-{
-private:
-	class node
-	{
-	public:
-		//put what you need here..
-	}
+// template <class T>
+// class priorityQueueLL
+// {
+// private:
+// 	class node
+// 	{
+// 	public:
+// 		//put what you need here..
+// 	}
 
-	//add what you wish here
+// 	//add what you wish here
 
-public:
+// public:
 
-	priorityQueueLL()
-	{}
+// 	priorityQueueLL()
+// 	{}
 
-	~priorityQueueLL()
-	{}
+// 	~priorityQueueLL()
+// 	{}
 
-	//return true if empty, false if not
-	bool empty()
-	{}
+// 	//return true if empty, false if not
+// 	bool empty()
+// 	{}
 
-	//add item
-	void insert(T x)
-	{}
+// 	//add item
+// 	void insert(T x)
+// 	{}
 
-	//remove and return smallest item
-	T extractMin()
-	{}
+// 	//remove and return smallest item
+// 	T extractMin()
+// 	{}
 
-};
+// };
