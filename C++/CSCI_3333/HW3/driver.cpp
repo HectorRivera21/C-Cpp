@@ -42,36 +42,36 @@ int main()
 	stkx.push(25);
 	stkx.push(30);
 
-	// stkx.insertAt(-100, 3);
-	// stkx.insertAt(-200, 7);
-	// stkx.insertAt(-300, 0);
+	stkx.insertAt(-100, 3);
+	stkx.insertAt(-200, 7);
+	stkx.insertAt(-300, 0);
 
-	// //output order: -300,30,25,20,-100,15,10,5,-200
-	// while( ! stkx.empty() )
-	// 	cout << "Popping: " << stkx.pop() << endl;
+	//output order: -300,30,25,20,-100,15,10,5,-200
+	while( ! stkx.empty() )
+		cout << "Popping: " << stkx.pop() << endl;
 
 
-	// ///////////////////////////////////////
+	///////////////////////////////////////
 
-	// //////////Test code for queue ///////////
+	//////////Test code for queue ///////////
 
-	// queueLL Q;
+	queueLL Q;
 
-	// Q.enqueue(1);
-	// Q.enqueue(2);
-	// Q.enqueue(3);
-	// cout << "Dequeuing: " << Q.dequeue() << endl; //1
-	// cout << "Dequeuing: " << Q.dequeue() << endl; //2
-	// Q.enqueue(4);
-	// Q.enqueue(5);
+	Q.enqueue(1);
+	Q.enqueue(2);
+	Q.enqueue(3);
+	cout << "Dequeuing: " << Q.dequeue() << endl; //1
+	cout << "Dequeuing: " << Q.dequeue() << endl; //2
+	Q.enqueue(4);
+	Q.enqueue(5);
 
-	// //3 4 5
-	// while( ! Q.empty() )
-	// {
-	// 	cout << "Dequeuing: " << Q.dequeue() << endl;
-	// }
+	//3 4 5
+	while( ! Q.empty() )
+	{
+		cout << "Dequeuing: " << Q.dequeue() << endl;
+	}
 
-	// /////////////////////////////////////////
+	/////////////////////////////////////////
 
 
 

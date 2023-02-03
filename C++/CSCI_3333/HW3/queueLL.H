@@ -1,25 +1,39 @@
 
-// class queueLL
-// {
-// private:
-// 	//put what you need here...
+class queueLL
+{
+private:
+	//put what you need here...
+    class Node{
+        public:
+            int value;
+            Node* next;
+            Node(int n){
+                value = n;
+                next = NULL;
+            }
+    };
+    Node* front, *rear;
 
-// public:
-// 	queueLL()
-// 	{}
 
-// 	~queueLL()
-// 	{}
+public:
+	queueLL()
+	{front = rear = NULL;}
 
-// 	//add item to back of queue
-// 	void enqueue(int x)
-// 	{}
+	~queueLL()
+	{}
 
-// 	//remove and return first item from queue
-// 	int dequeue()
-// 	{}
+	//add item to back of queue
+	void enqueue(int x)
+	{}
 
-// 	//For the final part of the test program, template this class
-// 	//and add a decimate method.
+	//remove and return first item from queue
+	int dequeue()
+	{}
 
-// };
+	bool empty()
+	{}
+
+	//For the final part of the test program, template this class
+	//and add a decimate method.
+
+};

@@ -70,6 +70,23 @@ public:
 	//right after the current ith item from the top
 	//(and before the i+1 item).
 	void insertAt(int x, int i)
-	{}
+	{
+		node* temp = new node(x);
+		
+		int pos = 1;
+		if(i==0){
+			temp->next = top;
+			top = temp;
+			return;
+		}
+		node* ptr = top;
+		while(ptr!=NULL && pos < i){
+			
+			ptr = ptr->next;
+			pos++;
+		}
+		temp->next = ptr->next;
+		ptr->next = temp;
+	} 
 
 };
