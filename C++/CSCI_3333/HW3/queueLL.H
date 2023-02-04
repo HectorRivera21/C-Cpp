@@ -12,12 +12,12 @@ private:
                 next = NULL;
             }
     };
-    Node* front, *rear;
+    Node*  head,* tail;
 
 
 public:
 	queueLL()
-	{front = rear = NULL;}
+	{head = tail = NULL;}
 
 	~queueLL()
 	{}
