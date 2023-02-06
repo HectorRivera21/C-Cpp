@@ -24,7 +24,15 @@ public:
 
 	//add item to back of queue
 	void enqueue(int x)
-	{}
+	{
+		Node* temp = new Node(x);
+		if(tail == NULL){
+			head = tail = temp;
+			return;
+		}
+		tail->next = temp;
+		tail = temp;
+	}
 
 	//remove and return first item from queue
 	int dequeue()
