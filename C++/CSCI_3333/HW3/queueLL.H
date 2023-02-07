@@ -36,10 +36,20 @@ public:
 
 	//remove and return first item from queue
 	int dequeue()
-	{}
+	{
+		if(head == NULL)
+			return -1;
+
+		
+	}
 
 	bool empty()
-	{}
+	{
+		if(head == NULL)
+			return true;
+		else
+			return false;
+	}
 
 	//For the final part of the test program, template this class
 	//and add a decimate method.
