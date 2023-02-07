@@ -45,7 +45,7 @@ public:
 	T dequeue()
 	{
 		if(head == NULL)
-			return -1||"";
+			return head->value;
 		
 		Node* del = head;
 		T val = head->value;
@@ -70,7 +70,7 @@ public:
 	//and add a decimate method.
 	void decimate(){
 		Node* temp = head;
-		Node* prev = NULL
+		Node* prev = NULL;
 		int count=1;
 
 		while(temp!=NULL){
