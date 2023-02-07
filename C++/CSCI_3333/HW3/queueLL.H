@@ -1,13 +1,13 @@
-
+template <typename T>
 class queueLL
 {
 private:
 	//put what you need here...
     class Node{
         public:
-            int value;
+            T value;
             Node* next;
-            Node(int n){
+            Node(T n){
                 value = n;
                 next = NULL;
             }
@@ -20,10 +20,17 @@ public:
 	{head = tail = NULL;}
 
 	~queueLL()
-	{}
+	{
+		Node* temp;
+		while(head!=NULL){
+			temp = head;
+			head = head->next;
+			delete(temp);
+		}
+	}
 
 	//add item to back of queue
-	void enqueue(int x)
+	void enqueue(T x)
 	{
 		Node* temp = new Node(x);
 		if(tail == NULL){
@@ -35,12 +42,20 @@ public:
 	}
 
 	//remove and return first item from queue
-	int dequeue()
+	T dequeue()
 	{
 		if(head == NULL)
-			return -1;
-
+			return -1||"";
 		
+		Node* del = head;
+		T val = head->value;
+		head = head->next;
+
+		if(head == NULL)
+			tail = NULL;
+
+		delete(del);
+		return val;
 	}
 
 	bool empty()
@@ -53,5 +68,26 @@ public:
 
 	//For the final part of the test program, template this class
 	//and add a decimate method.
+	void decimate(){
+		Node* temp = head;
+		Node* prev = NULL
+		int count=1;
+
+		while(temp!=NULL){
+			if(count % 10 == 0)
+			{
+				prev->next = temp->next;
+				delete temp;
+				temp = prev->next;
+			}
+			else 
+			{
+				prev = temp;
+				temp = temp->next;
+			}
+			count++;
+		}
+		
+	}
 
 };
