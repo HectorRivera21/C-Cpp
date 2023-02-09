@@ -4,19 +4,19 @@ class priorityQueueLL
 {
 private:
 	class node
-	{
+	{	
 	public:
 		//put what you need here..
-        T value;
-        node* next;
-        node(T n){
-            value = n;
-            next = NULL;
-        }
+		T value;
+		node* next;
+		node(T n){
+			value = n;
+			next = NULL;
+		}
 	}
 
 	//add what you wish here
-    node* head , tail;
+	node* head,* tail;
 
 public:
 
@@ -28,7 +28,15 @@ public:
 
 	//return true if empty, false if not
 	bool empty()
-	{return true;}
+	{
+		if(head == NULL){
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
 
 	//add item
 	void insert(T x)

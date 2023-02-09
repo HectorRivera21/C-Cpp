@@ -96,12 +96,12 @@ int main()
 
 	priorityQueueLL<string> pqs;
 
-	pqs.insert("whale");
-	pqs.insert("snake");
-	pqs.insert("buffalo");
-	pqs.insert("elmo");
-	pqs.insert("fire");
-	pqs.insert("waffle");
+	pqs.insert("whale");//529
+	pqs.insert("snake");//530
+	pqs.insert("buffalo");//735
+	pqs.insert("elmo");//429
+	pqs.insert("fire");//422
+	pqs.insert("waffle");//629
 
 	//buffalo elmo fire snake waffle whale
 	while( !pqs.empty() )
