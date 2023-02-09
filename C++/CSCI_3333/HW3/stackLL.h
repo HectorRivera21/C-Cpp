@@ -37,10 +37,7 @@ public:
 	//return true if empty, false if not
 	bool empty()
 	{
-		if(top == NULL)
-			return true;
-		else
-			return false;
+		return top==NULL;
 	}
 
 	//add item to top of stack
@@ -56,9 +53,8 @@ public:
 	{
 		node* del;
 		int temp;
-		if(top==NULL){
+		if(top==NULL)
 			return -1;
-		}
 		del = top;
 		top = top->next;
 		temp = del->val;
@@ -74,14 +70,15 @@ public:
 		node* temp = new node(x);
 		
 		int pos = 1;
-		if(i==0){
+		if(i==0)
+		{
 			temp->next = top;
 			top = temp;
 			return;
 		}
 		node* ptr = top;
-		while(ptr!=NULL && pos < i){
-			
+		while(ptr!=NULL && pos < i)
+		{	
 			ptr = ptr->next;
 			pos++;
 		}

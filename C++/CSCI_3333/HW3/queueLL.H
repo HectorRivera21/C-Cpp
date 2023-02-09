@@ -1,4 +1,4 @@
-template <typename T>
+template <class T>
 class queueLL
 {
 private:
@@ -7,7 +7,8 @@ private:
         public:
             T value;
             Node* next;
-            Node(T n){
+            Node(T n)
+			{
                 value = n;
                 next = NULL;
             }
@@ -22,18 +23,21 @@ public:
 	~queueLL()
 	{
 		Node* temp;
-		while(head!=NULL){
+		while(head!=NULL)
+		{
 			temp = head;
 			head = head->next;
 			delete(temp);
 		}
+		tail = NULL;
 	}
 
 	//add item to back of queue
 	void enqueue(T x)
 	{
 		Node* temp = new Node(x);
-		if(tail == NULL){
+		if(tail == NULL)
+		{
 			head = tail = temp;
 			return;
 		}
@@ -60,10 +64,7 @@ public:
 
 	bool empty()
 	{
-		if(head == NULL)
-			return true;
-		else
-			return false;
+		return head==NULL;
 	}
 
 	//For the final part of the test program, template this class
