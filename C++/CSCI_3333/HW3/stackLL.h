@@ -26,6 +26,7 @@ public:
 	//Take care of memory leaks...
 	~stackLL()
 	{
+		// free up memory by deleteing all nodes
 		node* temp;
 		while(top != NULL){
 			temp = top;
@@ -36,14 +37,14 @@ public:
 
 	//return true if empty, false if not
 	bool empty()
-	{
-		return top==NULL;
-	}
+	{return top==NULL;}
 
 	//add item to top of stack
 	void push(int x)
 	{
+		// create a temp new node
 		node* temp = new node(x);
+		//temp next to be our top since current temp is new top
 		temp->next = top;
 		top = temp;
 	}
@@ -51,14 +52,22 @@ public:
 	//remove and return top item from stack
 	int pop()
 	{
+		// delteion node
 		node* del;
+		// temp int to hold value
 		int temp;
+		//if top is null return -1
 		if(top==NULL)
 			return -1;
+		// set our deletion node to our top
 		del = top;
+		// our temp val will be the del
+		temp = top->val; 
+		// top will now be the next top
 		top = top->next;
-		temp = del->val;
-		delete del;// check wheather free or delete is better
+		// delete our deletion node
+		delete del;
+		// return our temp val
 		return temp;
 	}
 
@@ -67,23 +76,28 @@ public:
 	//(and before the i+1 item).
 	void insertAt(int x, int i)
 	{
+		// create a temp new node 
 		node* temp = new node(x);
-		
+		// position in stack
 		int pos = 1;
+		// if i is zero then it will be our new top
 		if(i==0)
 		{
 			temp->next = top;
 			top = temp;
 			return;
 		}
+		// get a pointer to the current node
 		node* ptr = top;
+		// traverse the list until desired position is reached or end of list is reached
 		while(ptr!=NULL && pos < i)
 		{	
 			ptr = ptr->next;
 			pos++;
 		}
+		// set the next pointer of the new node to the next node of the current node
 		temp->next = ptr->next;
+		// set the next pointer of the current node to the new node
 		ptr->next = temp;
 	} 
-
 };

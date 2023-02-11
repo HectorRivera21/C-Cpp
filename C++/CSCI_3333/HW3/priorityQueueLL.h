@@ -25,6 +25,7 @@ public:
 
 	~priorityQueueLL()
 	{
+        // free up memory by deleting all nodes
 		while(head!=NULL)
 		{
 			Node* temp = head;
@@ -45,11 +46,16 @@ public:
 		Node* temp = new Node(x);
 		if(head == NULL || head->value > x)
 		{
+            // If the head is NULL or the value of the 
+            // new node is smaller than the head,
+            // make the new node the head
 			temp->next = head;
 			head = temp;
 		}
 		else
 		{
+            // Else, traverse the list to find 
+            // the correct position for the new node
 			Node* copy = head;
 			Node* p = NULL;
 			while(copy != NULL && copy->value < x)
@@ -58,7 +64,7 @@ public:
 				copy= copy->next;
 			}
 
-			
+			// Insert the node at the correct position
             if(p == NULL){
                 temp->next = head;
                 head = temp;
