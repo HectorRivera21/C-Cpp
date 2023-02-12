@@ -24,6 +24,8 @@ public:
 
 
 	//Take care of memory leaks...
+	// O(n) since were are going through the stack linked list
+	// and delete each node
 	~stackLL()
 	{
 		// free up memory by deleteing all nodes
@@ -36,10 +38,16 @@ public:
 	}
 
 	//return true if empty, false if not
+	// O(1) since we are returning whether top is null or not
 	bool empty()
 	{return top==NULL;}
 
 	//add item to top of stack
+	/*
+		The big O run time for the push method would be O(1)since
+		were adding to the top of the stack and dont have to go through
+		each item in the stack to place it
+	*/
 	void push(int x)
 	{
 		// create a temp new node
@@ -50,6 +58,12 @@ public:
 	}
 
 	//remove and return top item from stack
+	/*
+		POP method comes out to the same O(1) since were taking the top
+		of the stack and returning its value and delteing the node this 
+		all run in constant time since we dont need to go throught the items
+		in the stack
+	*/
 	int pop()
 	{
 		// delteion node
@@ -74,6 +88,12 @@ public:
 	//add item x to stack, but insert it
 	//right after the current ith item from the top
 	//(and before the i+1 item).
+	///////////////////////////
+	/*
+		My runtime here would be O(n) since i have to traverse
+		through the stack linked list to be able to determine where i should
+		put the item
+	*/
 	void insertAt(int x, int i)
 	{
 		// create a temp new node 

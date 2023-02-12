@@ -25,6 +25,7 @@ public:
 	~queueLL()
 	{
 		// free up memory by deleting all nodes
+		//O(n) since we need to delete all nodes so we need to traverse though the queueLL
 		Node* temp;
 		while(head!=NULL)
 		{
@@ -36,6 +37,10 @@ public:
 	}
 
 	//add item to back of queue
+	/*
+		The worst case would O(1) since were pushing from the back of
+		queue and dont need to look through each item
+	*/
 	void enqueue(T x)
 	{
 		// temp node creation for our value
@@ -52,6 +57,11 @@ public:
 	}
 
 	//remove and return first item from queue
+	/*
+		The runtime of this method is O(1) since were are just deleting the head 
+		as a queue pertains to a first in first out approach and we dont need to look though each of
+		the items just delete head and move pointers
+	*/
 	T dequeue()
 	{
 		if(head == NULL)
@@ -72,6 +82,7 @@ public:
 	}
 
 	//return true if empty, false if not
+	// O(1) since were return true or false in constant time
 	bool empty()
 	{
 		return head==NULL;
@@ -79,6 +90,10 @@ public:
 
 	//For the final part of the test program, template this class
 	//and add a decimate method.
+	/*
+		Our decimate method will run in O(n) time at the worst case since we need to be able to
+		read each value to makesure its the 10th items in the queue 
+	*/
 	void decimate(){
 		Node* temp = head;
 		Node* prev = NULL;

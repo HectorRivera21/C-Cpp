@@ -26,6 +26,7 @@ public:
 	~priorityQueueLL()
 	{
         // free up memory by deleting all nodes
+		//O(n) since we need to delete all nodes so we need to traverse though the priorityQueueLL
 		while(head!=NULL)
 		{
 			Node* temp = head;
@@ -35,12 +36,18 @@ public:
 	}
 
 	//return true if empty, false if not
+	// O(1) since were returning true or false if head is NULL
 	bool empty()
 	{
 		return head == NULL;
 	}
 
 	//add item
+	/*
+		the running time of the insert function in a is O(n) in the worst case scenario
+		this is because in the worst case, the function needs to traverse the entire
+		linked list to find the correct position for the new node, resulting in a linear time complexity.
+	*/
 	void insert(T x)
 	{
 		Node* temp = new Node(x);
@@ -76,6 +83,11 @@ public:
     }
 
 	//remove and return smallest item
+	/*
+		since we already have out priority queue sorted from our insert method we
+		can just return the value of our head everytime and delte it then move pointers 
+		in O(1) constant time
+	*/
 	T extractMin()
 	{  
 		T Min = head->value;
