@@ -1,0 +1,15 @@
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\bin\Debug\net7.0-windows\C#.exe
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\bin\Debug\net7.0-windows\C#.deps.json
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\bin\Debug\net7.0-windows\C#.runtimeconfig.json
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\bin\Debug\net7.0-windows\C#.dll
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\bin\Debug\net7.0-windows\C#.pdb
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.csproj.AssemblyReference.cache
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.AssemblyInfoInputs.cache
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.AssemblyInfo.cs
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.csproj.CoreCompileInputs.cache
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.dll
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\refint\C#.dll
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.pdb
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\C#.genruntimeconfig.cache
+C:\Users\hecto\Desktop\coding\C-Cpp\C#\obj\Debug\net7.0-windows\ref\C#.dll
