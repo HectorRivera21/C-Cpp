@@ -39,7 +39,7 @@ public:
 	// Instead, only search regions of the tree for which a completion could
 	// be present, which will yield a run time bound of O(k log n ) time,
 	// where k is the number of completions in the tree.
-	// void completions(string x, vector<string> &T);
+	void completions(string x, vector<string> &T);
 
 	//Reports height of the AVL tree, runs in O(1) time.
 	int height()
@@ -88,6 +88,9 @@ private:
 			return -1;
 		return p->height;
 	}
+	static bool compareFreq(Entry a, Entry b){
+    	return a.freq > b.freq;
+	}	
 
 	// Root of the binary-search-tree-based data structure
 	Node* root;
@@ -101,7 +104,7 @@ private:
 	int size_recurse(Node* p);
 
 	// Fills C with the completions of x in the BST rooted at p.
-	// void completions_recurse(string x, Node* p, vector<Entry> &C);
+	void completions_recurse(string x, Node* p, vector<Entry> &C);
 
 	// Inserts an Entry into an AVL tree rooted at p.
 	//
@@ -122,7 +125,8 @@ private:
 	// Should run in O(1) time.
 	void right_rotate(Node* &p);
 	void left_rotate(Node* &p);
-
+	void right_left_rotate(Node* &p);
+	void left_right_rotate(Node* &p);
 
 	//A useful method to update
 	//the height of a node,
