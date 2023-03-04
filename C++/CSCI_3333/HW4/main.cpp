@@ -20,35 +20,35 @@ inline void _test(const char* expression, const char* file, int line)
 
 
 
-// void interactive_mode()
-// {
-// 	Autocompleter words;
+void interactive_mode()
+{
+	Autocompleter words;
 
-// 	ifstream f;
-// 	f.open("words2.txt");
-// 	assert(f.is_open()); // If this fails, you're missing words2.txt
-// 	string line;
-// 	int i = 0;
-// 	while (getline(f, line))
-// 	{
-// 		words.insert(line.substr(0, line.find(" ")),
-// 			stoi(line.substr(line.find(" ") + 1)));
-// 		++i;
-// 	}
-// 	f.close();
-// 	assert(i == 293147); // If this fails, words2.txt is wrong
+	ifstream f;
+	f.open("words2.txt");
+	assert(f.is_open()); // If this fails, you're missing words2.txt
+	string line;
+	int i = 0;
+	while (getline(f, line))
+	{
+		words.insert(line.substr(0, line.find(" ")),
+			stoi(line.substr(line.find(" ") + 1)));
+		++i;
+	}
+	f.close();
+	assert(i == 293147); // If this fails, words2.txt is wrong
 
-// 	vector<string> C;
-// 	while (cin)
-// 	{
-// 		string line;
-// 		getline(cin, line);
-// 		words.completions(line, C);
-// 		for (string s : C)
-// 			cout << "    " << s << endl;
-// 	}
-// 	exit(0);
-// }
+	vector<string> C;
+	while (cin)
+	{
+		string line;
+		getline(cin, line);
+		words.completions(line, C);
+		for (string s : C)
+			cout << "    " << s << endl;
+	}
+	exit(0);
+}
 
 int main()
 {
@@ -58,7 +58,7 @@ int main()
 	// Enter a string and press Enter - the autocompletions
 	// results from words.txt are printed.
 	//
-	//interactive_mode();
+	// interactive_mode();
 
 
 	// Setup
@@ -117,7 +117,6 @@ int main()
 
 	// Test completions()
 	animals.completions("a", R);
-	cout<< R.size()<<endl;
 	test(R.size() == 3);
 	test(R[0] == "alpaca");
 	test(R[1] == "aardvark");

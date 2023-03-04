@@ -4,9 +4,6 @@
 #include <algorithm>
 #include "autocompleter.h"
 
-
-
-
 Autocompleter::Autocompleter(){
     root = nullptr;
 }
@@ -17,22 +14,17 @@ int Autocompleter::size_recurse(Node* p){
 }
 
 void Autocompleter::completions_recurse(string x, Node* p, vector<Entry> &C){
-    if(p == nullptr)
-    {
+    if (p == nullptr)
         return;
-    }
-    
-    if(x == p->e.s.substr(0, x.length()))
-    {
+
+    if (p->e.s.find(x) == 0) {
         C.push_back(p->e);
     }
 
-    if(x < p->e.s)
-    {
+    if (p->e.s >= x) {
         completions_recurse(x, p->left, C);
     }
-    else
-    {
+    if (p->e.s.substr(0, x.length()) <= x) {
         completions_recurse(x, p->right, C);
     }
     
@@ -114,39 +106,14 @@ int Autocompleter::size(){
 }
 
 void Autocompleter::completions(string x, vector<string> &T){
-    Node* temp = root;
-
-    while(temp!=nullptr){
-        if(temp->e.s == x){
-            break;
-        }
-        else if (temp->e.s < x){
-            temp = temp->right;
-        }
-        else{
-            temp = temp->left;
-        }
-    }
-    if (temp == nullptr) {
-        return;
-    }
-
-    vector<Entry> C;
-    if(temp->left != nullptr){
-        completions_recurse(x, temp->left, C);
-    }
-    C.push_back(temp->e);
-    if(temp->right != nullptr){
-        completions_recurse(x, temp->right, C);
-    }
-    std::sort(C.begin(), C.end(), compareFreq);
-    
     T.clear();
-    
-    int k = min((int)C.size(), 3);
-    cout<< k<<endl;
-    for(int i = 0; i<k; i++){
-       T.push_back(C[i].s);
-       cout<< C.size() << endl;
+    vector<Entry> C;
+    C.clear();
+    completions_recurse(x, root, C);
+
+    std::sort(C.begin(), C.end(), compareFreq);
+
+    for (int i = 0; i < min(3, (int)C.size()); i++) {
+        T.push_back(C[i].s);
     }
 }
