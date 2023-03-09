@@ -35,7 +35,7 @@ class Autocompleter
 		// The completions appear in T from most to least frequent.
 		// 
 		// Must run in O(1) time.
-		void completions(string x, vector<string> &T);
+		// void completions(string x, vector<string> &T);
 
 	private:
 		// A helper class that stores a string and a frequency.
