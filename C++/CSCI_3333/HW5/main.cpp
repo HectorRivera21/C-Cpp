@@ -81,6 +81,7 @@ int main()
 	animals.insert("goose", 3739382);
 	animals.insert("goatfish", 19984);
 	animals.insert("giraffe", 978584);
+	cout<< animals.size()<<endl;
 	test(animals.size() == 13);
 
 

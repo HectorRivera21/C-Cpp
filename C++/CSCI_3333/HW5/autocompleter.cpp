@@ -1,40 +1,49 @@
 #include "autocompleter.h"
 
 Autocompleter::Autocompleter(){
-    root = new Node();
+    root = new Node;
     count = 0;
 }
 void Autocompleter::insert(string x, int freq){
     Node* temp = root;
-    Entry e = {x, freq};
-    for(int i = 0; i< x.size();i++){
-        if(temp->children[x[i]] == nullptr){
-            temp->children[x[i]] == new Node();
-        }
-        temp = temp->children[x[i]];
+    for(char c : x)
+    {
+        if(temp->children[c] == nullptr)
+            temp->children[c] = new Node;
+        temp = temp->children[c];
     }
-    temp->marked == true;
-    count += 1;
+    if(temp->marked)
+    {
+        for(Entry& e : temp->top)
+        {
+            if(e.s == x)
+            {
+                e.freq += freq;
+                return;
+            }
+        }
+    }
+    else
+    {
+        Entry e = {x, freq};
+        temp->top.push_back(e);
+        temp->marked = true;
+        count ++;
+    }
+    
 }
 int Autocompleter::size(){
     return count;
 }
+void Autocompleter::completions(string x, vector<string> &T)
+{
+    T.clear();
+    
+    Node* temp = root;
 
-// void Autocompleter::completions(string x, vector<string> &T)
-// {
-//     Node* temp = root;
-//     if(temp == nullptr){
-
-//     }
-//     else{
-//         for(int i = 0; i< 256; i++){
-//             if(temp->children[x[i]]==nullptr){
-                
-//             }
-//             else{
-//                 temp = temp->children[x[i]];
-//             }
-
-//         }
-//     }
-// }
+    for(char c : x){
+        temp = temp->children[c];
+        if(temp == nullptr)return;
+    }
+    
+}
