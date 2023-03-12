@@ -4,8 +4,9 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <chrono>
 #include "autocompleter.h"
-// #include "autocompleter.cpp"
+#include "autocompleter.cpp"
 
 using namespace std;
 
@@ -49,18 +50,18 @@ void interactive_mode()
 	exit(0);
 }
 
-int main()
-{
+int main(){
 	// Uncomment line below to use your Autocompleter 
 	// interactively with words2.txt as the dictionary.
 	// 
 	// Enter a string and press Enter - the autocompletions
 	// results from words.txt are printed.
 	// 
-	//interactive_mode();
+	interactive_mode();
 
 
 	// Setup
+    auto start = chrono::high_resolution_clock::now();
 	vector<string> R;
 
 
@@ -318,7 +319,7 @@ int main()
 		test(R[1] == "yellowstone");
 		test(R[2] == "yellowpages");
 	}
-
-
-	cout << "Assignment complete." << endl;
+    auto finish = chrono::high_resolution_clock::now();
+	chrono::duration<double> elapsed = finish-start;
+	cout << "Assignment complete." << endl <<"took: "<<elapsed.count() << endl;
 }

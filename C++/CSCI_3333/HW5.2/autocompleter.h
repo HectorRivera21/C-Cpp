@@ -1,10 +1,8 @@
-
 #ifndef AUTOCOMPLETER_H
 #define AUTOCOMPLETER_H
 
 #include <vector>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
@@ -51,18 +49,16 @@ class Autocompleter
 		class Node
 		{
 			public:
+				Node()
+				{
+					this->marked = false;
+					for (int i = 0; i < 256; ++i)
+						children[i] = nullptr; 
+				}
+
 				bool marked;
 				vector<Entry> top;
 				Node* children[256];
-				Node()
-				{
-					
-					for (int i = 0; i < 256; ++i)
-						children[i] = nullptr; 
-					this->marked = false;
-				}
-
-				
 		};
 
 		// Root of the trie-based data structure
@@ -73,4 +69,3 @@ class Autocompleter
 };
 
 #endif
-
