@@ -9,9 +9,7 @@ void Autocompleter::insert(string x, int freq){
     Node* temp = root;
     Entry e = {x,freq};
     root->top.push_back(e);
-    sort(root->top.begin(), root->top.end(), [](const Entry& a, const Entry& b) {
-        return a.freq > b.freq;
-    });
+    sort(root->top.begin(),root->top.end(),compareFreq);
     while(root->top.size() > 3){
         root->top.pop_back();
     }
@@ -24,7 +22,7 @@ void Autocompleter::insert(string x, int freq){
         bool found = false;
         for (Entry& e : temp->top) {
             if (e.s == x) {
-                e.freq += freq;
+                e.freq = freq;
                 found = true;
                 break;
             }
@@ -34,9 +32,7 @@ void Autocompleter::insert(string x, int freq){
             temp->top.push_back(entry);
         }
         // sort the top completions in descending order by frequency
-        sort(temp->top.begin(), temp->top.end(), [](const Entry& a, const Entry& b) {
-            return a.freq > b.freq;
-        });
+        sort(temp->top.begin(), temp->top.end(), compareFreq);
         // truncate the top completions to three entries
         if (temp->top.size() > 3) {
             temp->top.resize(3);

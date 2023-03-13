@@ -60,6 +60,9 @@ class Autocompleter
 				vector<Entry> top;
 				Node* children[256];
 		};
+		static bool compareFreq(Entry a, Entry b){
+    		return a.freq > b.freq;
+		}	
 
 		// Root of the trie-based data structure
 		Node* root;
