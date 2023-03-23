@@ -10,7 +10,7 @@ void Autocompleter::insert(string x, int freq){
     Entry e = {x,freq};
     root->top.push_back(e);
     sort(root->top.begin(),root->top.end(),compareFreq);
-    while(root->top.size() > 3){
+    if (temp->top.size() > 3){
         root->top.pop_back();
     }
     for (char c : x) {
