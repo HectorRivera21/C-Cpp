@@ -23,6 +23,8 @@ class MinPriorityQueue
 		MinPriorityQueue()
 		{
 			// TODO
+			H.clear();
+			I.clear();
 		}
 
 		// Returns the number of elements in the MinPriorityQueue.
@@ -31,6 +33,7 @@ class MinPriorityQueue
 		int size()
 		{
 			// TODO	
+			return I.size();
 		}	
 
 		// Pushes a new value x with priority p
@@ -40,6 +43,9 @@ class MinPriorityQueue
 		void push(T x, int p)
 		{
 			// TODO
+			if(H.size() == (H.size() - 1)){
+				H.resize(H.size() * 2);
+			}
 		}
 
 		// Returns the value at the front of the MinPriorityQueue.
@@ -48,7 +54,7 @@ class MinPriorityQueue
 		// Must run in O(1) time.
 		T front()
 		{
-			// TODO	
+			// TODO
 		}
 
 		// Removes the value at the front of the MinPriorityQueue.
@@ -69,6 +75,11 @@ class MinPriorityQueue
 		void decrease_key(T x, int new_p)
 		{
 			// TODO
+			auto found = I.find(x);
+			if(found != I.end()){
+				if(found->second >= new_p)
+					found->second = new_p;
+			}
 		}
 
 	private:

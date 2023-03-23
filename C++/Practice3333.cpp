@@ -88,12 +88,17 @@ int main()
     //STRING SUM ASCII CALC
 
     // int sum = 0;
-    // string txt = "waffle";
+    // string txt = "foo123";
     // for(int i = 0; i<txt.size();i++){
     //     sum+=txt[i];
     // }
     // cout<< sum;
-
+    int rot= 0;
+    for(int i = 0; i<1000000;i++){
+        if(229)
+        rot = (9 + (i^2));
+    }
+    cout<< rot;
     ///////////////////////////
 
 
