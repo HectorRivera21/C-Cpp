@@ -43,9 +43,6 @@ class MinPriorityQueue
 		void push(T x, int p)
 		{
 			// TODO
-			if(H.size() == (H.size() - 1)){
-				H.resize(H.size() * 2);
-			}
 		}
 
 		// Returns the value at the front of the MinPriorityQueue.
@@ -77,8 +74,7 @@ class MinPriorityQueue
 			// TODO
 			auto found = I.find(x);
 			if(found != I.end()){
-				if(found->second >= new_p)
-					found->second = new_p;
+				H[I->second].second = new_p;
 			}
 		}
 
