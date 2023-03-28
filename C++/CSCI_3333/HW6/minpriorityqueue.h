@@ -23,18 +23,13 @@ class MinPriorityQueue
 		MinPriorityQueue()
 		{
 			// TODO
-			H.clear();
-			I.clear();
 		}
 
 		// Returns the number of elements in the MinPriorityQueue.
 		//
 		// Must run in O(1) time.
 		int size()
-		{
-			// TODO	
-			return I.size();
-		}	
+		{return H.size();}	
 
 		// Pushes a new value x with priority p
 		// into the MinPriorityQueue.
@@ -43,16 +38,16 @@ class MinPriorityQueue
 		void push(T x, int p)
 		{
 			// TODO
+			H.push_back({x, p});
+			I[x] = H.size() - 1;
+			bubbleUp(H.size() - 1);
 		}
 
 		// Returns the value at the front of the MinPriorityQueue.
 		// Undefined behavior if the MinPriorityQueue is empty.
 		// 
 		// Must run in O(1) time.
-		T front()
-		{
-			// TODO
-		}
+		T front(){return H[0].first;}
 
 		// Removes the value at the front of the MinPriorityQueue.
 		// Undefined behavior if the MinPriorityQueue is empty.
@@ -60,7 +55,17 @@ class MinPriorityQueue
 		// Must run in O(log(n)) time. 
 		void pop()
 		{
+			if(H.empty()){
+				return;
+			}
 			// TODO	
+			swap(H.front(), H.back());
+			I.erase(H[0].first);
+			H.pop_back();
+			if(!H.empty()){
+				I[H.front().first] = 0;
+				bubbleDown(0);
+			}
 		}
 
 		// If x is in the MinPriorityQueue 
@@ -72,17 +77,48 @@ class MinPriorityQueue
 		void decrease_key(T x, int new_p)
 		{
 			// TODO
-			auto found = I.find(x);
-			if(found != I.end()){
-				H[I->second].second = new_p;
+			int i = I[x];
+			if(H[i].second > new_p){
+				H[i].second = new_p;
+				bubbleUp(i);
 			}
+			
 		}
 
 	private:
+		void bubbleUp(int i){
+			if(i == 0)
+				return;
+			int parent = (i-1)/2;
+			if(H[parent].second> H[i].second){
+				swap(H[parent], H[i]);
+				I[H[parent].first] = parent;
+				I[H[i].first] = i;
+				bubbleUp(parent);
+			}
+		}
+		void bubbleDown(int i){
+			int leftChild = 2 * i + 1;
+			int rightChild = 2 * i + 2;
+			int smallest = i;
+			if(leftChild < H.size() && H[leftChild].second < H[smallest].second){
+				smallest = leftChild;
+			}
+			if(rightChild < H.size() && H[rightChild].second < H[smallest].second){
+				smallest = rightChild;
+			}
+			if(smallest != i){
+				swap(H[i], H[smallest]);
+				I[H[i].first] = i;
+				I[H[smallest].first] = smallest;
+				bubbleDown(smallest);
+			}
+		}
 		// You don't need any other instance variables,
 		// but you can add some if you want to.
 		vector< pair<T, int> > H; // The heap.
 		unordered_map<T, int> I;  // Maps values to their indices in H.
+		
 };
 
 #endif 

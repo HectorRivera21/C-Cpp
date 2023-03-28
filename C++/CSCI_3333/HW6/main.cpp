@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <chrono>
 #include "minpriorityqueue.h"
 
 using namespace std;
@@ -41,6 +42,7 @@ int main()
 
 	// Test size(), push(), front(), pop()
 	// with "nice" priorities
+	auto start = chrono::high_resolution_clock::now();
 	MinPriorityQueue<string> Q1;
 	test(Q1.size() == 0);
 
@@ -408,6 +410,7 @@ int main()
 	Q9.pop(); 
 	test(Q9.size() == 0);
 
-
-	cout << "Assignment complete." << endl;
+	auto finish = chrono::high_resolution_clock::now();
+	chrono::duration<double> elapsed = finish-start;
+	cout << "Assignment complete." << endl <<"took: "<<elapsed.count() << endl;
 }
