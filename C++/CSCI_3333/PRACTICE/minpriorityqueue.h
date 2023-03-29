@@ -2,6 +2,7 @@
 #define MINPRIORITYQUEUE_H
 
 // NOTE: You may not include any other libraries!
+#include <iostream>
 #include <unordered_map>
 #include <vector>
 #include <utility> // Has pair and swap
@@ -60,7 +61,8 @@ class MinPriorityQueue
 			}
 			// TODO	
 			swap(H.front(), H.back());
-			I.erase(H.back().first);
+			I.erase(H[0].first);
+			cout << H.back().first << endl;
 			H.pop_back();
 			if(!H.empty()){
 				bubbleDown(0);

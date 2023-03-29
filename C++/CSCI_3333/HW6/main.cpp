@@ -87,6 +87,8 @@ int main()
 	test(Q1.size() == 1);
 	test(Q1.front() == "hello2");
 
+	
+
 
 	// Test size(), push(), front(), pop()
 	// with "not nice" priorities
