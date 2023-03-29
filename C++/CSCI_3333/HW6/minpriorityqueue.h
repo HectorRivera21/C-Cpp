@@ -63,7 +63,6 @@ class MinPriorityQueue
 			I.erase(H[0].first);
 			H.pop_back();
 			if(!H.empty()){
-				I[H.front().first] = 0;
 				bubbleDown(0);
 			}
 		}

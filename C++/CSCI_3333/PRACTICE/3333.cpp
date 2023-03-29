@@ -51,10 +51,6 @@ int main(){
     vHeap.push_back({"e", 5012});
     vHeap.push_back({"wwe", 5012});
     vHeap.push_back({"gen", 5012});
-    for(int i  = 0; i < 100000; i++){
-        cool[i] = std::to_string(i+1);
-        vHeap.push_back({cool[i], 98});
-    }
     auto compare = [](auto a, auto b){return a.second<b.second;};
     std::sort(vHeap.begin(), vHeap.end(), compare);
 
@@ -63,6 +59,12 @@ int main(){
     }
 
     showMap(uMap);
+    for(int i = 0; i< vHeap.size();i++){
+        uMap.erase(vHeap[i].first);
+    }
+    for(auto i: uMap){
+        std::cout<< i.first<<i.second<<std::endl;
+    }
 
 
     // auto start = std::chrono::high_resolution_clock::now();
