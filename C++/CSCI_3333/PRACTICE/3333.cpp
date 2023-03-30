@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <string>
 #include <unordered_map>
 #include <vector>
 #include <stdio.h>
@@ -31,6 +32,18 @@ void showMap(std::unordered_map<std::string, int> &M){
     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
 }
 int main(){
+
+    srand(2023 + 's');
+	string maze;
+    maze = "";
+	maze += "##### #\n";
+	maze += "#   # #\n";
+	maze += "# # # #\n";
+	maze += "# #   #\n";
+	maze += "# #####\n";
+
+
+
     // MinPriorityQueue<int> Q1;
     // Q1.push(24, 3);
     // Q1.push(7, 23);
