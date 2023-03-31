@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdio.h>
 #include <algorithm>
+#include <math.h>
 #include "minpriorityqueue.h"
 
 
@@ -41,8 +42,17 @@ int main(){
 	maze += "# # # #\n";
 	maze += "# #   #\n";
 	maze += "# #####\n";
-
-
+    int n = sqrt(maze.size());
+    vector<vector<char>> m(n, vector<char>(n,' '));
+    int start, end;
+    for (int i = 0; i < maze.size(); i++) {
+        if (maze[i] == 'A') {
+            start = i;
+        } else if (maze[i] == 'B') {
+            end = i;
+        }
+        m[i / n][i % n] = maze[i];
+    }
 
     // MinPriorityQueue<int> Q1;
     // Q1.push(24, 3);
