@@ -2,11 +2,14 @@
 #include <chrono>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <stdio.h>
 #include <algorithm>
+#include <queue>
 #include <math.h>
 #include "minpriorityqueue.h"
+#include "vertex.h"
 
 
 // void D(int n)
@@ -26,33 +29,97 @@
 //                 time++;
 // //    std::cout<<time;
 // }
-void showMap(std::unordered_map<std::string, int> &M){
-    std::cout<< "num items: "<< M.size()<<std::endl;
-    std::cout<<"num buckets: "<< M.bucket_count()<<std::endl;
-    std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
-    std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
+// void showMap(std::unordered_map<std::string, int> &M){
+//     std::cout<< "num items: "<< M.size()<<std::endl;
+//     std::cout<<"num buckets: "<< M.bucket_count()<<std::endl;
+//     std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
+//     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
+// }
+
+
+
+string solveMaze(string maze){
+    vector<vector<char>> m;
+    unordered_map<Vertex*, pair<int,int>> g;
+    Vertex* temp;
+    int rows = 0, cols = 0;
+    for (int i = 0; i < maze.length(); i++) {
+        if (maze[i] == '\n') {
+            rows++;
+            cols = 0;
+        }else{
+            if (cols == 0) m.push_back(vector<char>());
+            m[rows].push_back(maze[i]);
+            cols++;
+        }
+    }
+
+    
+    string solution = maze;
+    return solution;
 }
+
+
+
 int main(){
 
     srand(2023 + 's');
-	string maze;
+	string maze,  soln;
     maze = "";
-	maze += "##### #\n";
-	maze += "#   # #\n";
-	maze += "# # # #\n";
-	maze += "# #   #\n";
-	maze += "# #####\n";
-    int n = sqrt(maze.size());
-    vector<vector<char>> m(n, vector<char>(n,' '));
-    int start, end;
-    for (int i = 0; i < maze.size(); i++) {
-        if (maze[i] == 'A') {
-            start = i;
-        } else if (maze[i] == 'B') {
-            end = i;
-        }
-        m[i / n][i % n] = maze[i];
+	maze += "# ######################################\n";
+	maze += "#   ###     ##                      ## #\n";
+	maze += "### ### ### #  ###### ######## #  # #  #\n";
+	maze += "# #     # # ##      #        # #### # ##\n";
+	maze += "# ####### # ##### # # ###### # #       #\n";
+	maze += "#         #     # # #      # # #  ##   #\n";
+	maze += "# ### ### ##### # # ######## # #####   #\n";
+	maze += "# ### #     #   ###          # ##    ###\n";
+	maze += "#     # ### # ######## #######  # #### #\n";
+	maze += "# # # # ### #          ##    ## # ## # #\n";
+	maze += "# # # #     ########## #   #### # ## # #\n";
+	maze += "# # ##### #          # ### #    #      #\n";
+	maze += "# #    ## #######  # # #      # ### ####\n";
+	maze += "# #### ##   # # #### # #####  #   # #  #\n";
+	maze += "# ## ## ###       ## #       ## # # # ##\n";
+	maze += "## # #  ###### ## ## ####### ## # # # ##\n";
+	maze += "#  # #       # ##                      #\n";
+	maze += "###################################### #\n";
+    soln = "";
+	soln += "#o######################################\n";
+	soln += "#ooo###ooooo##                      ## #\n";
+	soln += "###o###o###o#  ###### ######## #  # #  #\n";
+	soln += "# #ooooo# #o##      #        # #### # ##\n";
+	soln += "# ####### #o##### # # ###### # #       #\n";
+	soln += "#         #ooooo# # #      # # #  ##   #\n";
+	soln += "# ### ### #####o# # ######## # #####   #\n";
+	soln += "# ### #     #ooo###          # ##    ###\n";
+	soln += "#     # ### #o######## #######  # #### #\n";
+	soln += "# # # # ### #oooooooooo##    ## # ## # #\n";
+	soln += "# # # #     ##########o#   #### # ## # #\n";
+	soln += "# # ##### #          #o### #    #      #\n";
+	soln += "# #    ## #######  # #o#      # ### ####\n";
+	soln += "# #### ##   # # #### #o#####  #   # #  #\n";
+	soln += "# ## ## ###       ## #ooooooo## # # # ##\n";
+	soln += "## # #  ###### ## ## #######o## # # # ##\n";
+	soln += "#  # #       # ##           ooooooooooo#\n";
+	soln += "######################################o#\n";
+
+    maze = solveMaze(maze);
+    if(maze == soln){
+        cout<<'niceeee';
     }
+    cout<<"not correct fuck tard";
+    // for(auto x: solu){
+    //     std::cout<<x;
+    // }
+    
+    
+
+
+
+
+
+
 
     // MinPriorityQueue<int> Q1;
     // Q1.push(24, 3);
