@@ -40,8 +40,9 @@
 
 string solveMaze(string maze){
     vector<vector<char>> m;
-    unordered_map<Vertex*, pair<int,int>> g;
-    Vertex* temp;
+    unordered_map<Vertex*, Vertex*> g;
+    unordered_set<Vertex*> marked;
+    queue<Vertex*> q;
     int rows = 0, cols = 0;
     for (int i = 0; i < maze.length(); i++) {
         if (maze[i] == '\n') {
@@ -53,6 +54,7 @@ string solveMaze(string maze){
             cols++;
         }
     }
+
 
     
     string solution = maze;
