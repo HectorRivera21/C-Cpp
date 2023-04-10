@@ -8,8 +8,10 @@
 #include <algorithm>
 #include <queue>
 #include <math.h>
+#include <utility>
 #include "minpriorityqueue.h"
 #include "vertex.h"
+
 
 
 // void D(int n)
@@ -35,30 +37,114 @@
 //     std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
 //     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
 // }
+int rc[2];
+unordered_map<string, Vertex*> Routes;
+unordered_map<Vertex*, Vertex*> breadCrumbs;
+void findRowCol(string maze) {
+	rc[0] = 0; rc[1] = 0;
+	for (int i = 0; i < maze.size() - 1; i++) {//find #of row and col
+		if (maze[i] == '\n') {
+			rc[1] = i+1;//find # of col
+			break;
+		}
+	}
+	rc[0] = (maze.size() / rc[1] ) -1;//#of rows
+	rc[1] = rc[1] - 2;//# of columns
+}
+void addEdge(string a, string b)
+{
+	Vertex * Aptr = Routes[a];//find object to a vertex create a pointer to it
+	Vertex * Bptr = Routes[b];
 
+	Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
+	Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
+}
+bool inBorder(string maze, int r, int c) {
+	if (r == 0 || c == 0 || r == rc[0] || c == rc[1]) {
+		return true;
+	}
+	return false;
+}
+bool checkTop(int r, int c) {
+	string key = to_string(r-1) + "," + to_string(c);
+	if (Routes.find(key) == Routes.end()) {//not a vertex
+		return false;
+	}
+	return true;
+}
 
+bool checkLeft(int r, int c) {
+	string key = to_string(r) + "," + to_string(c-1);
+	if (Routes.find(key) == Routes.end()) {//not a vertex
+		return false;
+	}
+	return true;
+}
+string shortestPath(string* startEnd, string maze){
+    Vertex* Start = Routes[startEnd[0]];
+    Vertex* Destination = Routes[startEnd[1]];
 
-string solveMaze(string maze){
-    vector<vector<char>> m;
-    unordered_map<Vertex*, Vertex*> g;
-    unordered_set<Vertex*> marked;
-    queue<Vertex*> q;
-    int rows = 0, cols = 0;
-    for (int i = 0; i < maze.length(); i++) {
-        if (maze[i] == '\n') {
-            rows++;
-            cols = 0;
-        }else{
-            if (cols == 0) m.push_back(vector<char>());
-            m[rows].push_back(maze[i]);
-            cols++;
+    BFS(startEnd[0]);
+
+    Vertex* curr = Destination;
+}
+string solve(string maze){
+    findRowCol(maze);
+    int rows = 0, cols = 0, border = 0;
+    string solu="", startEnd[2], startEnd[0] = "", startEnd[1] ="";
+
+    
+    for(auto x: maze){
+        if(x == ' '){
+            if (inBorder(maze, rows, cols) && border==0){
+                Vertex* tmp = new Vertex(rows,cols);
+                string cords = to_string(rows)+","+to_string(cols);
+                Routes[cords] = tmp;
+                startEnd[0] = cords; 
+                if(checkTop(rows, cols)){
+                    string cordsTop = to_string(rows-1)+","+to_string(cols);
+                    addEdge(cords, cordsTop);
+                }
+                if(checkLeft(rows, cols)){
+                    string cordsLeft = to_string(rows)+","+to_string(cols-1);
+                    addEdge(cords, cordsLeft);
+                }
+                border++;
+            }else if(inBorder(maze, rows, cols) && border == 1){
+                Vertex* tmp = new Vertex(rows,cols);
+                string cords = to_string(rows)+","+to_string(cols); 
+                Routes[cords] = tmp;
+                startEnd[1] = cords;
+                if(checkTop(rows, cols)){
+                    string cordsTop = to_string(rows-1)+","+to_string(cols);
+                    addEdge(cords, cordsTop);
+                }
+                if(checkLeft(rows, cols)){
+                    string cordsLeft = to_string(rows)+","+to_string(cols-1);
+                    addEdge(cords, cordsLeft);
+                }
+            }
+            else{
+                Vertex* tmp = new Vertex(rows,cols);
+                string cords = to_string(rows)+","+to_string(cols);
+                Routes[cords] = tmp;
+                if(checkTop(rows, cols)){
+                    string cordsTop = to_string(rows-1)+","+to_string(cols);
+                    addEdge(cords, cordsTop);
+                }
+                if(checkLeft(rows, cols)){
+                    string cordsLeft = to_string(rows)+","+to_string(cols-1);
+                    addEdge(cords, cordsLeft);
+                }
+            }
         }
+        if(x == '\n'){rows++;cols = 0;}else{cols++;}
     }
 
 
+    solu = shortestPath(startEnd, maze);
     
-    string solution = maze;
-    return solution;
+    return solu;
 }
 
 
@@ -68,49 +154,20 @@ int main(){
     srand(2023 + 's');
 	string maze,  soln;
     maze = "";
-	maze += "# ######################################\n";
-	maze += "#   ###     ##                      ## #\n";
-	maze += "### ### ### #  ###### ######## #  # #  #\n";
-	maze += "# #     # # ##      #        # #### # ##\n";
-	maze += "# ####### # ##### # # ###### # #       #\n";
-	maze += "#         #     # # #      # # #  ##   #\n";
-	maze += "# ### ### ##### # # ######## # #####   #\n";
-	maze += "# ### #     #   ###          # ##    ###\n";
-	maze += "#     # ### # ######## #######  # #### #\n";
-	maze += "# # # # ### #          ##    ## # ## # #\n";
-	maze += "# # # #     ########## #   #### # ## # #\n";
-	maze += "# # ##### #          # ### #    #      #\n";
-	maze += "# #    ## #######  # # #      # ### ####\n";
-	maze += "# #### ##   # # #### # #####  #   # #  #\n";
-	maze += "# ## ## ###       ## #       ## # # # ##\n";
-	maze += "## # #  ###### ## ## ####### ## # # # ##\n";
-	maze += "#  # #       # ##                      #\n";
-	maze += "###################################### #\n";
-    soln = "";
-	soln += "#o######################################\n";
-	soln += "#ooo###ooooo##                      ## #\n";
-	soln += "###o###o###o#  ###### ######## #  # #  #\n";
-	soln += "# #ooooo# #o##      #        # #### # ##\n";
-	soln += "# ####### #o##### # # ###### # #       #\n";
-	soln += "#         #ooooo# # #      # # #  ##   #\n";
-	soln += "# ### ### #####o# # ######## # #####   #\n";
-	soln += "# ### #     #ooo###          # ##    ###\n";
-	soln += "#     # ### #o######## #######  # #### #\n";
-	soln += "# # # # ### #oooooooooo##    ## # ## # #\n";
-	soln += "# # # #     ##########o#   #### # ## # #\n";
-	soln += "# # ##### #          #o### #    #      #\n";
-	soln += "# #    ## #######  # #o#      # ### ####\n";
-	soln += "# #### ##   # # #### #o#####  #   # #  #\n";
-	soln += "# ## ## ###       ## #ooooooo## # # # ##\n";
-	soln += "## # #  ###### ## ## #######o## # # # ##\n";
-	soln += "#  # #       # ##           ooooooooooo#\n";
-	soln += "######################################o#\n";
-
-    maze = solveMaze(maze);
+	maze += "##### #\n";
+	maze += "#     #\n";
+	maze += "# #####\n";
+	soln = "";
+	soln += "#####o#\n";
+	soln += "#ooooo#\n";
+	soln += "#o#####\n";
+    maze = solve(maze);
     if(maze == soln){
-        cout<<'niceeee';
+        cout<<"niceeee\n";
+    }else{
+        cout<<"not correct fuck tard";
     }
-    cout<<"not correct fuck tard";
+    
     // for(auto x: solu){
     //     std::cout<<x;
     // }
