@@ -1,7 +1,10 @@
 #include "solve.h"
 #include "vertex.h"
+//hold values for rows and cols
 int rc[2];
+// holds the cords and vertexes
 unordered_map<string, Vertex*> Routes;
+// our breadcrumbs to follow
 unordered_map<Vertex*, Vertex*> breadCrumbs;
 void findRowCol(string maze) {
 	rc[0] = 0; rc[1] = 0;
@@ -90,8 +93,6 @@ string solve(string maze){
     int rows = 0, cols = 0, border = 0;
     string solu=""; 
     string startEnd[2]; startEnd[0] = "", startEnd[1] ="";
-
-    
     for(auto x: maze){
         if(x == ' '){
             if (inBorder(maze, rows, cols) && border==0){
@@ -138,9 +139,5 @@ string solve(string maze){
         }
         if(x == '\n'){rows++;cols = 0;}else{cols++;}
     }
-
-
-    solu = shortestPath(startEnd, maze);
-    
-    return solu;
+    return shortestPath(startEnd, maze);
 }
