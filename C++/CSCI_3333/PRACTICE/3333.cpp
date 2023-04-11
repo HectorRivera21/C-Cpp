@@ -182,8 +182,7 @@ string solve(string maze){
         }
         if(x == '\n'){rows++;cols = 0;}else{cols++;}
     }
-
-
+	
     solu = shortestPath(startEnd, maze);
     
     return solu;
