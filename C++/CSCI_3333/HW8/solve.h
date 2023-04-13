@@ -25,5 +25,4 @@ using namespace std;
 // Must run in O(s*log(s)) time.
 string solve(string maze);
 
-#endif 
-
+#endif
