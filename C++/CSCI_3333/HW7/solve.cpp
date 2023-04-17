@@ -1,7 +1,7 @@
 #include "solve.h"
 #include "vertex.h"
 //hold values for rows and cols
-vector<int> rc(2);
+vector<int> rows_cols(2);
 // holds the cords and vertexes
 unordered_map<string, Vertex*> Routes;
 // our breadcrumbs to follow
@@ -32,7 +32,7 @@ void BFS(string s){
 
 }
 bool Border(string maze, int r, int c){
-    if (r == 0 || c == 0 || r == rc[0] || c == rc[1]) {
+    if (r == 0 || c == 0 || r == rows_cols[0] || c == rows_cols[1]) {
 		return true;
 	}
 	return false;
@@ -59,15 +59,15 @@ string solve(string maze){
     Routes.clear();
 	breadCrumbs.clear();
     // find cols and rows in maze
-    rc[0] = 0; rc[1] = 0;
+    rows_cols[0] = 0; rows_cols[1] = 0;
 	for (int i = 0; i < maze.size() - 1; i++) {//find # of row and col
 		if (maze[i] == '\n') {
-			rc[1] = i+1;//find # of col
+			rows_cols[1] = i+1;//find # of col
 			break;
 		}
 	}
-	rc[0] = (maze.size() / rc[1] ) -1;//#of rows
-	rc[1] = rc[1] - 2;//# of columns
+	rows_cols[0] = (maze.size() / rows_cols[1] ) -1;//#of rows
+	rows_cols[1] = rows_cols[1] - 2;//# of columns
     int rows = 0, cols = 0, border = 0;
     string solu="";
     string startEnd[2]; startEnd[0] = "", startEnd[1] ="";
@@ -166,11 +166,11 @@ string solve(string maze){
     Vertex* curr = D;
     while(curr != S){
         // mark the path with 'o'
-        maze[(curr->row*(rc[1]+2))+curr->col] = 'o';
+        maze[(curr->row*(rows_cols[1]+2))+curr->col] = 'o';
         curr = breadCrumbs[curr];
     }
     // mark the starting point as well
-    maze[(S->row*(rc[1]+2))+S->col] = 'o';
+    maze[(S->row*(rows_cols[1]+2))+S->col] = 'o';
     //find and return the shortest path from start to end
     return maze;
 }
