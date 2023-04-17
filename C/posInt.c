@@ -2,8 +2,8 @@
 #include <stdlib.h>
 int main()
 {
-    FILE* ptr = fopen("randomInts.txt", "r");
-    int num;
+    FILE* ptr = fopen("C:/Users/hecto/OneDrive/Desktop/coding/C-Cpp/C/randomInts.txt", "r");
+    int num = 0;
 
     if (NULL == ptr)
 	{
