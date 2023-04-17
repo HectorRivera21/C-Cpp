@@ -3,7 +3,7 @@
 //hold values for rows and cols
 vector<int> rows_cols(2);
 // holds the cords and vertexes
-unordered_map<string, Vertex*> Routes;
+unordered_map<string, Vertex*> mazeRoutes;
 // our breadcrumbs to follow
 unordered_map<Vertex*, Vertex*> breadCrumbs;
 // perform a bfs on the maze, starting at vertex s
@@ -11,7 +11,7 @@ void BFS(string s){
     queue<Vertex*>Q;
     unordered_set<Vertex*> marked;
     
-    Vertex* S = Routes[s];
+    Vertex* S = mazeRoutes[s];
 
     marked.insert(S);
     Q.push(S);
@@ -39,7 +39,7 @@ bool Border(string maze, int r, int c){
 }
 bool Top(int r, int c) {
 	string key = to_string(r-1) + "," + to_string(c);
-	if (Routes.find(key) == Routes.end()) {//not a vertex
+	if (mazeRoutes.find(key) == mazeRoutes.end()) {//not a vertex
 		return false;
 	}
 	return true;
@@ -47,7 +47,7 @@ bool Top(int r, int c) {
 // check if the left coordinate is a vertex
 bool Left(int r, int c) {
 	string key = to_string(r) + "," + to_string(c-1);
-	if (Routes.find(key) == Routes.end()) {//not a vertex
+	if (mazeRoutes.find(key) == mazeRoutes.end()) {//not a vertex
 		return false;
 	}
 	return true;
@@ -56,7 +56,7 @@ bool Left(int r, int c) {
 // takes a maze string and finds the shortest path from the start to the end
 string solve(string maze){
     //clear our graph and map
-    Routes.clear();
+    mazeRoutes.clear();
 	breadCrumbs.clear();
     // find cols and rows in maze
     rows_cols[0] = 0; rows_cols[1] = 0;
@@ -80,14 +80,14 @@ string solve(string maze){
                 //create new vertex save cords in string and input to our map
                 Vertex* tmp = new Vertex(rows,cols);
                 string cords = to_string(rows)+","+to_string(cols);
-                Routes[cords] = tmp;
+                mazeRoutes[cords] = tmp;
                 //starting vertex
                 startEnd[0] = cords; 
                 if(Top(rows,cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     //add edge to the vertex above it
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsTop];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsTop];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -95,8 +95,8 @@ string solve(string maze){
                 if(Left(rows, cols)){
                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
                     //add edge to the vertex above it
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsLeft];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsLeft];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -108,14 +108,14 @@ string solve(string maze){
                 //create new vertex save cords in string and input to our map
                 Vertex* tmp = new Vertex(rows,cols);
                 string cords = to_string(rows)+","+to_string(cols);
-                Routes[cords] = tmp;
+                mazeRoutes[cords] = tmp;
                 //store the destination coordinates
                 startEnd[1] = cords;
                 if(Top(rows,cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     //add edge to the vertex above it
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsTop];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsTop];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -123,8 +123,8 @@ string solve(string maze){
                 if(Left(rows, cols)){
                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
                     //add edge to the vertex above it
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsLeft];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsLeft];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -134,12 +134,12 @@ string solve(string maze){
             else{
                 Vertex* tmp = new Vertex(rows,cols);
                 string cords = to_string(rows)+","+to_string(cols);
-                Routes[cords] = tmp;//add the new vertex to the map of all
+                mazeRoutes[cords] = tmp;//add the new vertex to the map of all
                 //check if the vertex above the current one is in the border and add an edge if so 
                 if(Top(rows,cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsTop];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsTop];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -147,8 +147,8 @@ string solve(string maze){
                 //check if the vertex to the left of the current one is in the border and add an edge if so
                 if(Left(rows, cols)){
                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
-                    Vertex * Aptr = Routes[cords];//find object to a vertex create a pointer to it
-                    Vertex * Bptr = Routes[cordsLeft];//find object to b vertex, create a pointer to it
+                    Vertex * Aptr = mazeRoutes[cords];//find object to a vertex create a pointer to it
+                    Vertex * Bptr = mazeRoutes[cordsLeft];//find object to b vertex, create a pointer to it
 
                     Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
@@ -158,8 +158,8 @@ string solve(string maze){
         //if newline character increment rows and reset cols else increment cols
         if(x == '\n'){rows++;cols = 0;}else{cols++;}
     }
-    Vertex* S = Routes[startEnd[0]];
-    Vertex* D = Routes[startEnd[1]];
+    Vertex* S = mazeRoutes[startEnd[0]];
+    Vertex* D = mazeRoutes[startEnd[1]];
     // perform bfs to calculate shortest path from start to all other vertices
     BFS(startEnd[0]);
     // shortest path from destination to start using breadCrumbs map
