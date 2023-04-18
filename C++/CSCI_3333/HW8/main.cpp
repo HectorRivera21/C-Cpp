@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include "solve.h"
+#include "solve.cpp"
 
 using namespace std;
 

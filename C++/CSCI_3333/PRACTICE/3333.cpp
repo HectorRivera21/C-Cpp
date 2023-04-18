@@ -44,10 +44,11 @@ inline void _test(const char* expression, const char* file, int line)
 //     std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
 //     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
 // }
-/*
+
 int rc[2];
 unordered_map<string, Vertex*> Routes;
 unordered_map<Vertex*, Vertex*> breadCrumbs;
+MinPriorityQueue<Vertex*> Q;
 void findRowCol(string maze) {
 	rc[0] = 0; rc[1] = 0;
 	for (int i = 0; i < maze.size() - 1; i++) {//find #of row and col
@@ -135,7 +136,6 @@ string solve(string maze){
     int rows = 0, cols = 0, border = 0;
     string solu=""; 
     string startEnd[2]; startEnd[0] = "", startEnd[1] ="";
-
     
     for(auto x: maze){
         if(x == ' '){
@@ -143,7 +143,8 @@ string solve(string maze){
                 Vertex* tmp = new Vertex(rows,cols);
                 string cords = to_string(rows)+","+to_string(cols);
                 Routes[cords] = tmp;
-                startEnd[0] = cords; 
+                startEnd[0] = cords;
+                Q.push(tmp,0); 
                 if(checkTop(rows, cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     addEdge(cords, cordsTop);
@@ -158,6 +159,7 @@ string solve(string maze){
                 string cords = to_string(rows)+","+to_string(cols); 
                 Routes[cords] = tmp;
                 startEnd[1] = cords;
+                Q.push(tmp,(int)INFINITY);
                 if(checkTop(rows, cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     addEdge(cords, cordsTop);
@@ -171,6 +173,7 @@ string solve(string maze){
                 Vertex* tmp = new Vertex(rows,cols);
                 string cords = to_string(rows)+","+to_string(cols);
                 Routes[cords] = tmp;
+                Q.push(tmp,1);
                 if(checkTop(rows, cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     addEdge(cords, cordsTop);
@@ -188,26 +191,24 @@ string solve(string maze){
     
     return solu;
 }
-*/
+
 
 
 int main(){	
 
 	
-	////MAZE HW7 STUFF
-    // srand(2023 + 's');
-	// string maze, soln;
-	// maze = "";
-	// maze += "#########################################################\n";
-	// maze += "     #        #     #     #              #     #         \n";
-	// maze += "#  #   #    #   # #   # #   #          #   # #   #      #\n";
-	// maze += "#########################################################\n";
-	// soln = "";
-	// soln += "#########################################################\n";
-	// soln += "ooooo#oooooooo#ooooo#ooooo#oooooooooooooo#ooooo#ooooooooo\n";
-	// soln += "#  #ooo#    #ooo# #ooo# #ooo#          #ooo# #ooo#      #\n";
-	// soln += "#########################################################\n";
-	// test(solve(maze) == soln);
+	//MAZE HW7 STUFF
+    srand(2023 + 's');
+	string maze, soln;
+	maze = "";
+	maze += "##### #\n";
+	maze += "#     #\n";
+	maze += "# #####\n";
+	soln = "";
+	soln += "#####o#\n";
+	soln += "#ooooo#\n";
+	soln += "#o#####\n";
+	test(solve(maze) == soln);
 	
 	//// MinQ STUFF ideas
     // MinPriorityQueue<int> Q1;
