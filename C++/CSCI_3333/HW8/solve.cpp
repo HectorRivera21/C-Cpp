@@ -80,7 +80,6 @@ string solve(string maze){
                 mazeRoutes[cords] = tmp;
                 //starting vertex
                 startEnd[0] = cords;
-                Q. 
                 if(Top(rows,cols)){
                     string cordsTop = to_string(rows-1)+","+to_string(cols);
                     //add edge to the vertex above it
@@ -88,7 +87,7 @@ string solve(string maze){
                     Vertex * Bptr = mazeRoutes[cordsTop];//find object to b vertex, create a pointer to it
 
 
-                    Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
+                    Aptr->neighs.push_back(Bptr,);//add b to the list of a's neighbors
                     Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
                 }
                 if(Left(rows, cols)){
