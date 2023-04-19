@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include "minpriorityqueue.h"
 #include "solve.h"
 
 using namespace std;
