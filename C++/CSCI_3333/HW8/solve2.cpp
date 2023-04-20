@@ -10,13 +10,14 @@ class graph {
                 {
                     row = r;
                     col = c;
+                    weight = 100000;
                 }
 
                 // Corresponding row and column location in maze
                 int row;
                 int col;
                 //weight of vertex
-                int weight = INT_MAX;
+                int weight;
 
                 // List of neighboring vertices
                 vector<Vertex*> neighs;
@@ -62,7 +63,6 @@ class graph {
 	        Vertex * Bptr = mazeRoutes[b];//find object to b vertex, create a pointer to it
 
             Aptr->neighs.push_back(Bptr);
-            Aptr->weight = weight;
             Aptr->weight_tracker[Bptr] = weight;
         }
         void Edge(string a, string b, int weight){
@@ -70,10 +70,11 @@ class graph {
             add_directed_edged(b,a, weight);
         }
 
-        void add_vertex_path(int rows, int cols, int weight,vector<int> Real_RC, vector<string>& startEnd){
+        void add_vertex_path(int rows, int cols,vector<int> Real_RC, vector<string>& startEnd){
             string cords = to_string(rows)+","+to_string(cols);
             mazeRoutes[cords] = new Vertex(rows,cols);
             minQ.push(mazeRoutes[cords],mazeRoutes[cords]->weight);
+            int weight = 1;
             if (rows == 0 || cols == 0 || Real_RC[1] == cols || Real_RC[0] == rows){
                 startEnd.push_back(cords);
             }
@@ -104,14 +105,14 @@ class graph {
             }
             
         }
-        void relax(Vertex* x, Vertex* y, unordered_map <Vertex*, Vertex*>& breadcrumbs){
+        void relax(Vertex* &x, Vertex* &y, unordered_map <Vertex*, Vertex*>& breadcrumbs){
             int Xw = x->weight;
             int Xe = x->weight_tracker[y];
             int total = Xw + Xe;
             if(y->weight > total){
-                minQ.decrease_key(y, total);
                 y->weight = total;
                 breadcrumbs[y] = x;
+                minQ.decrease_key(y, total);
             }
         }
         string shortestPath(vector<string>& startEnd,vector<int>& Real_RC ,string maze){
@@ -125,7 +126,9 @@ class graph {
             Dikstras(S, breadCrumbs);
             Vertex* curr = D;
             while(curr!=S){
+                cout<< curr<<endl;
                 solu[curr->row*(Real_RC[1]+2)+curr->col] = 'o';
+                
                 curr = breadCrumbs[curr];
             }
             solu[(S->row*(Real_RC[1]+2))+S->col] = 'o';
@@ -144,20 +147,19 @@ class graph {
             //counters
             int rows = 0, cols = 0;
             //parser for maze
-            int weight = INT_MAX;
             for(int i = 0; i< maze.size()-1;i++){
                 //check if space character
                 if(maze[i] == ' '){
-                    add_vertex_path(rows, cols, weight, Real_RC, startEnd);
+                    add_vertex_path(rows, cols, Real_RC, startEnd);
                 }
                 if(maze[i]>=48 && maze[i]<=57){
-                    add_vertex_path(rows, cols, weight, Real_RC, startEnd);
+                    add_vertex_path(rows, cols, Real_RC, startEnd);
                     if(gates.find(maze[i])==gates.end()){
                         gates[maze[i]] = to_string(rows)+","+to_string(cols);
                     }
                     else{
                         string cords = to_string(rows)+","+to_string(cols);
-                        weight = maze[i] - 48;
+                        int weight = maze[i] - 48;
                         Edge(cords, gates[maze[i]], weight);
                         gates.erase(maze[i]);
                     }

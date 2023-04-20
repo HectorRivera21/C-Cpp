@@ -135,6 +135,7 @@ int main()
 	maze += "#  #     #  #           #           #  #     #     #  # #\n";
 	maze += "#########################################################\n";
 	soln = "";
+	//r:2 c:57 Destination r:2 c:0 Start
 	soln += "#########################################################\n";
 	soln += "#oooo #ooooooo #  #  #oooo #  #  #ooooooo #oooo #ooooooo#\n";
 	soln += "oo##o##o## ##o## ## ##o##o## ## ##o## ##o##o##o##o## ##oo\n";
