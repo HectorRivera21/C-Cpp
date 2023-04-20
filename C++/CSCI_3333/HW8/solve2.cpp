@@ -90,6 +90,9 @@ class graph {
         }
         void Dikstras(Vertex* S, unordered_map <Vertex*, Vertex*>& breadcrumbs){
             unordered_set <Vertex*> marked;
+            S->weight = 0;
+            minQ.decrease_key(S, S->weight);
+            
             while (!minQ.size() == 0)
             {
                 Vertex* x = minQ.front();
@@ -120,15 +123,11 @@ class graph {
             Vertex* D = mazeRoutes[startEnd[1]];
             string solu = maze;
 
-            S->weight = 0;
-            minQ.decrease_key(S, S->weight);
             unordered_map<Vertex*, Vertex*> breadCrumbs;
             Dikstras(S, breadCrumbs);
             Vertex* curr = D;
             while(curr!=S){
-                cout<< curr<<endl;
                 solu[curr->row*(Real_RC[1]+2)+curr->col] = 'o';
-                
                 curr = breadCrumbs[curr];
             }
             solu[(S->row*(Real_RC[1]+2))+S->col] = 'o';
