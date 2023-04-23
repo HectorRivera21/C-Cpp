@@ -10,14 +10,13 @@ class graph {
                 {
                     row = r;
                     col = c;
-                    weight = 100000;
                 }
 
                 // Corresponding row and column location in maze
                 int row;
                 int col;
                 //weight of vertex
-                int weight;
+                int weight= 900000000;
 
                 // List of neighboring vertices
                 vector<Vertex*> neighs;
@@ -72,67 +71,90 @@ class graph {
 
         void add_vertex_path(int rows, int cols,vector<int> Real_RC, vector<string>& startEnd){
             string cords = to_string(rows)+","+to_string(cols);
-            mazeRoutes[cords] = new Vertex(rows,cols);
-            minQ.push(mazeRoutes[cords],mazeRoutes[cords]->weight);
-            int weight = 1;
-            if (rows == 0 || cols == 0 || Real_RC[1] == cols || Real_RC[0] == rows){
-                startEnd.push_back(cords);
-            }
-            if(vert_top(rows, cols)){
-                string cordsTop = to_string(rows-1)+","+to_string(cols);
-                //add edge to the vertex above it
-                Edge(cords, cordsTop, weight);
-            }
-            if(vert_left(rows, cols)){
-                string cordsLeft = to_string(rows)+","+to_string(cols-1);
-                Edge(cords, cordsLeft, weight);
+            if (mazeRoutes.find(cords) == mazeRoutes.end()) {
+                mazeRoutes[cords] = new Vertex(rows,cols);
+                minQ.push(mazeRoutes[cords],mazeRoutes[cords]->weight);
+                int weight = 1;
+                if (rows == 0 || cols == 0 || Real_RC[1] == cols || Real_RC[0] == rows){
+                    startEnd.push_back(cords);
+                }
+                if (rows > 0) {
+                    string cordsTop = to_string(rows-1) + "," + to_string(cols);
+                    if (mazeRoutes.find(cordsTop) != mazeRoutes.end()) {
+                        //add edge to the vertex above it
+                        Edge(cords, cordsTop, weight);
+                    }
+                }
+                if (cols > 0) {
+                    string cordsLeft = to_string(rows) + "," + to_string(cols-1);
+                    if (mazeRoutes.find(cordsLeft) != mazeRoutes.end()) {
+                        //add edge to the vertex to the left of it
+                        Edge(cords, cordsLeft, weight);
+                    }
+                }
+                if (rows < Real_RC[0]) {
+                    string cordsBottom = to_string(rows + 1) + "," + to_string(cols);
+                    if (mazeRoutes.find(cordsBottom) != mazeRoutes.end() && vert_top(rows + 1, cols)) {
+                        //add edge to the vertex below it
+                        Edge(cords, cordsBottom, weight);
+                    }
+                }
+                if (cols < Real_RC[1]) {
+                    string cordsRight = to_string(rows) + "," + to_string(cols + 1);
+                    if (mazeRoutes.find(cordsRight) != mazeRoutes.end() && vert_left(rows, cols + 1)) {
+                        //add edge to the vertex to the right of it
+                        Edge(cords, cordsRight, weight);
+                    }
+                }
             }
         }
-        void Dikstras(Vertex* S, unordered_map <Vertex*, Vertex*>& breadcrumbs){
+        void Dikstras(Vertex* S, Vertex* D,unordered_map <Vertex*, Vertex*>& breadcrumbs){
             unordered_set <Vertex*> marked;
-            while (!minQ.size() == 0)
+            while (!minQ.Empty())
             {
                 Vertex* x = minQ.front();
-                marked.insert(x);
                 minQ.pop();
-
-                for(int i = 0; i< x->neighs.size(); i++){
-                    Vertex* y= x->neighs[i];
-                    if(marked.find(y)==marked.end()){
+                if(x == D){
+                    return;
+                }
+                marked.insert(x);
+                for(Vertex* y : x->neighs){
+                    if(marked.find(y) == marked.end()){
                         relax(x,y,breadcrumbs);
                     }
                 }
             }
-            
         }
         void relax(Vertex* &x, Vertex* &y, unordered_map <Vertex*, Vertex*>& breadcrumbs){
             int Xw = x->weight;
             int Xe = x->weight_tracker[y];
             int total = Xw + Xe;
             if(y->weight > total){
-                y->weight = total;
-                breadcrumbs[y] = x;
                 minQ.decrease_key(y, total);
+                
+                y->weight = total;
+                
+                breadcrumbs[y] = x;
             }
         }
         string shortestPath(vector<string>& startEnd,vector<int>& Real_RC ,string maze){
             Vertex* S = mazeRoutes[startEnd[0]];
             Vertex* D = mazeRoutes[startEnd[1]];
             string solu = maze;
-
             S->weight = 0;
             minQ.decrease_key(S, S->weight);
             unordered_map<Vertex*, Vertex*> breadCrumbs;
-            Dikstras(S, breadCrumbs);
+            Dikstras(S,D,breadCrumbs);
+            if(breadCrumbs.find(D)==breadCrumbs.end()){
+                D->weight = D->neighs[0]->weight+1;
+                breadCrumbs[D] = D->neighs[0];
+            }
             Vertex* curr = D;
             while(curr!=S){
-                cout<< curr<<endl;
                 solu[curr->row*(Real_RC[1]+2)+curr->col] = 'o';
-                
                 curr = breadCrumbs[curr];
             }
             solu[(S->row*(Real_RC[1]+2))+S->col] = 'o';
-
             return solu;
         }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <chrono>
 #include "solve.h"
 // #include "COOL.cpp"
 #include "solve2.cpp"
@@ -25,6 +26,7 @@ int main()
 
 
 	// Test a few mazes without portals
+	auto start = chrono::high_resolution_clock::now();
 
 	maze = "";
 	maze += "##### #\n";
@@ -212,9 +214,9 @@ int main()
 				++j;
 			}
 		}
-		test(solve(maze) == soln);
+		test(solve(maze) == soln);	
 	}
-
+	
 
 
 	// Test mazes with portals
@@ -547,8 +549,9 @@ int main()
 		}
 		test(solve(maze) == soln);
 	}
-
-	cout << "Assignment complete." << endl;
+	auto finish = chrono::high_resolution_clock::now();
+	chrono::duration<double> elapsed = finish-start;
+	cout << "Assignment complete." << endl <<"took: "<<elapsed.count() << endl;
 }
 
 

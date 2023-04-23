@@ -5,10 +5,10 @@
 #include <unordered_map>
 #include <vector>
 #include <utility> // Has pair and swap
-
 using namespace std;
-
+//Template Value
 template <typename T>
+
 class MinPriorityQueue
 {
 	// For the mandatory running times below:
@@ -60,12 +60,12 @@ class MinPriorityQueue
 		void pop()
 		{
 			//if our vector is empty leave function
-			if(H.empty())
+			if(H.empty()||I.empty())
 				return;
 			//swap our front to our back to pop element
+			I.erase(H.front().first);
 			swap(H.front(), H.back());
 			//erase the back element using the first pair element as the key to find it in our map
-			I.erase(H.back().first);
 			//remove from vector
 			H.pop_back();
 			//if the heap is not empty perform bubble-down operation on the new root
@@ -81,6 +81,8 @@ class MinPriorityQueue
 		// Must run in O(log(n)) time. 
 		void decrease_key(T x, int new_p)
 		{
+			if(I.find(x)==I.end())
+				return;
 			//gain our index i for the heap from using the key to locate it inside our map
 			int i = I[x];
 			//if the priority of the element is greater than the new priority
@@ -117,6 +119,9 @@ class MinPriorityQueue
 			int rightChild = 2 * i + 2;
 			//smallest index
 			int smallest = i;
+			if (leftChild>=H.size())
+				return;
+			
 			//check if left child exists and has smaller priority than current index
 			if(leftChild < H.size() && H[leftChild].second < H[smallest].second)
 				smallest = leftChild;
