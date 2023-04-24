@@ -29,9 +29,7 @@ class MinPriorityQueue
 		// Returns the number of elements in the MinPriorityQueue.
 		//
 		// Must run in O(1) time.//return the size of the vector heap
-		bool Empty(){
-			return H.size() == 0;
-		}
+		
 
 		int size(){return H.size();}
 
@@ -94,7 +92,9 @@ class MinPriorityQueue
 			
 						
 		}
-
+		bool Empty(){
+			return H.size() == 0;
+		}
 	private:
 		void bubbleUp(int i){
 			// initilize the parent node index
