@@ -23,13 +23,11 @@ class MinPriorityQueue
 		MinPriorityQueue()
 		{
 			// nothing is needed since its empty already
-			H.clear();
 		}
 
 		// Returns the number of elements in the MinPriorityQueue.
 		//
 		// Must run in O(1) time.//return the size of the vector heap
-		
 
 		int size(){return H.size();}
 
@@ -40,7 +38,7 @@ class MinPriorityQueue
 		void push(T x, int p)
 		{
 			//push our pair into the heap
-			H.push_back(pair<T,int>{x, p});
+			H.push_back({x, p});
 			//track our index in the heap for the key 
 			I[x] = H.size() - 1;
 			//keep the heap property by bubble up method passing the index of the newly inserted item in the heap
@@ -64,13 +62,15 @@ class MinPriorityQueue
 			//if our vector is empty leave function
 			if(H.empty())
 				return;
-			
-			H[0]=H[H.size()-1];
+			//swap our front to our back to pop element
+			swap(H.front(), H.back());
+			//erase the back element using the first pair element as the key to find it in our map
+			I.erase(H.back().first);
 			//remove from vector
 			H.pop_back();
 			//if the heap is not empty perform bubble-down operation on the new root
-
-			bubbleDown(0);
+			if(!H.empty())
+				bubbleDown(0);
 		}
 
 		// If x is in the MinPriorityQueue 
@@ -82,55 +82,54 @@ class MinPriorityQueue
 		void decrease_key(T x, int new_p)
 		{
 			//gain our index i for the heap from using the key to locate it inside our map
-			//if the priority of the element is greater than the new priority
-			//then assign the new priority
-			
 			int i = I[x];
-    		H[i].second = new_p;
-			//and bubble up
-			bubbleUp(i);
+			//if the priority of the element is greater than the new priority
+			if(H[i].second > new_p){
+				//then assign the new priority
+				H[i].second = new_p;
+				//and bubble up
+				bubbleUp(i);
+			}
 			
-						
 		}
-		bool Empty(){
-			return H.size() == 0;
-		}
+
 	private:
 		void bubbleUp(int i){
+			//if i is zero then return reached root of heap
+			if(i == 0)
+				return;
 			// initilize the parent node index
 			int parent = (i-1)/2;
 			//if parent node is greater than current node in the heap
-			while (i > 0 && H[(i-1)/2].second > H[i].second) {
-        		// Swap the current node with its parent
-				I[H[i].first] = (i-1)/2;
-				I[H[(i-1)/2].first] = i;
-				swap(H[i], H[(i-1)/2]);
-				// Move up to the parent node
-				i = (i-1)/2;
+			if(H[parent].second> H[i].second){
+				//swap them 
+				swap(H[parent], H[i]);
+				//update the indexes in the map
+				I[H[parent].first] = parent;
+				I[H[i].first] = i;
+				//recursivly bubble up
+				bubbleUp(parent);
 			}
 		}
 		void bubbleDown(int i){
 			//calculate indices of left and right children
 			int leftChild = 2 * i + 1;
 			int rightChild = 2 * i + 2;
-			int smallest = leftChild;
-			if(H.size()<leftChild)
-				return;
-			else{
-				if(H.size()>rightChild){
-					if(H[leftChild].second>H[rightChild].second)
-						smallest = H[leftChild].second > H[rightChild].second? rightChild:leftChild;
-				}
-				
-				if(H[i].second > H[smallest].second){
-					I[H[i].first] = smallest;
-					I[H[smallest].first] = i;
-
-					swap(H[i], H[smallest]);
-					bubbleDown(smallest);
-				}
+			//smallest index
+			int smallest = i;
+			//check if left child exists and has smaller priority than current index
+			if(leftChild < H.size() && H[leftChild].second < H[smallest].second)
+				smallest = leftChild;
+			//check if right child exists and has smaller priority than current index or left child
+			if(rightChild < H.size() && H[rightChild].second < H[smallest].second)
+				smallest = rightChild;
+			//if the smallest index is not i swap the values and continue bubbling down
+			if(smallest != i){
+				swap(H[i], H[smallest]);
+				I[H[i].first] = i;
+				I[H[smallest].first] = smallest;
+				bubbleDown(smallest);
 			}
-
 		}
 		// You don't need any other instance variables,
 		// but you can add some if you want to.
