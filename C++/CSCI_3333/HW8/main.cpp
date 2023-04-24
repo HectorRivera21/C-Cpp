@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <chrono>
 #include "solve.h"
 // #include "COOL.cpp"
 #include "solve2.cpp"
@@ -20,6 +21,7 @@ inline void _test(const char* expression, const char* file, int line)
 int main()
 {
 	// Setup
+	auto start = std::chrono::high_resolution_clock::now();
 	srand(2023 + 's');
 	string maze, soln;
 
@@ -548,7 +550,9 @@ int main()
 		test(solve(maze) == soln);
 	}
 
-	cout << "Assignment complete." << endl;
+	auto finish = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = finish-start;   
+	cout << "Assignment complete." << "\ntook: "<<elapsed.count()<<endl;
 }
 
 
