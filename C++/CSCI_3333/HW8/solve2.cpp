@@ -62,7 +62,7 @@ class graph {
             return true;
         }
         void add_directed_edged(string a, string b, int weight){
-            Vertex * Aptr = mazeRoutes[a];//find object to a vertex create a pointer to it
+            Vertex * Aptr = mazeRoutes[a];//find object  to a vertex create a pointer to it
 	        Vertex * Bptr = mazeRoutes[b];//find object to b vertex, create a pointer to it
             //push back the neighbors the vertex Bptr
             Aptr->neighs.push_back(Bptr);
