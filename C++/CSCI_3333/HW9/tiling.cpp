@@ -166,6 +166,35 @@ int max_flow(Vertex* s, Vertex* t, unordered_set<Vertex*> V)
 bool has_tiling(string floor)
 {
         // TODO
+		vector<Vertex*> P;
+		unordered_set<Vertex*> V;
+		int RC[2];
+		Vertex* Source = new Vertex;
+		Vertex* Sink = new Vertex;
+		V.insert(Source);
+		V.insert(Sink);
+		int row=0 ,col=0;
+		for(int i = 0; i<floor.size()-1;i++){
+			if(floor[i] == ' '){
+				Vertex* tmp = new Vertex;
+				P.push_back(tmp);
+				V.insert(tmp);
+			}
+			if(floor[i] == '\n'){row++; col = 0;}else{col++;}
+
+		}
+		if((row*col)%2 == 1){
+			return false;
+		}
+	
+		int flow = max_flow(Source, Sink, V);
+
+
+
+
+
+
+
         return false;
 }
 
