@@ -1,6 +1,6 @@
-
 #include "tiling.h"
 #include "vertex.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -161,75 +161,73 @@ int max_flow(Vertex* s, Vertex* t, unordered_set<Vertex*> V)
 
         return flow;
 }
-
-void create_paths(int y, int x, int weight,Vertex& Z, vector<vector<Vertex>>& P, unordered_set<Vertex*> V){
-	Z.neighs.insert(&P[y][x]);
-	P[y][x].neighs.insert(&Z);
-	Z.weights[&P[y][x]] = weight;
-	P[y][x].weights[&Z] = weight;
-	V.insert(&Z);
-}
-
 bool has_tiling(string floor)
 {
-	// TODO
-	int w = floor.find('\n'), h= floor.length() /(w+1);
-	int pipe_weight=1;
+    int n = floor.size();
+  if (n % 2 == 1) {
+    return false;
+  }
+  int total_cells = n * n / 4;
+  int target_cells = total_cells - count(floor.begin(), floor.end(), 'B');
 
-	vector<vector<Vertex>> P(h,vector<Vertex>(w));
-	unordered_set<Vertex*> V;
-	Vertex* Source = new Vertex();
-	Vertex* Sink = new Vertex();
-	V.insert(Source);
-	
-	
-	for(int i=0; i<h; ++i){
-		for(int j=0; j<w;++j){
-			char c = floor[i*(w+1)+j];
-			if(c == '#')
-				continue;
-			Vertex& tmp = P[i][j];
-			if((i+j)%2 == 0)
-			{
-				Source->neighs.insert(&tmp);
-				Source->weights[&tmp] = pipe_weight;
-				tmp.neighs.insert(Source);
-				tmp.weights[Source] = pipe_weight;
-				V.insert(&tmp);
-			}
-			else
-			{
-				Sink->neighs.insert(&tmp);
-				Sink->weights[&tmp] = 0;
-				tmp.neighs.insert(Sink);
-				tmp.weights[Sink] = pipe_weight;
-				V.insert(&tmp);
-			}
-			if(j>0 && floor[i*(w+1)+j-1]!='#'){
-				create_paths(i, j-1, pipe_weight, tmp, P, V);
-			}
-			if(j<w-1 && floor[i*(w+1)+j+1]!='#'){
-				create_paths(i, j+1, pipe_weight, tmp, P, V);
-			}
-			if(i>0 && floor[(i-1)*(w+1)+j]!='#'){
-				create_paths(i-1, j, pipe_weight, tmp, P, V);
-			}
-			if(i<h-1 && floor[(i+1)*(w+1)+j]!='#'){
-				create_paths(i+1, j, pipe_weight, tmp, P, V);
-			}
-		}
-	}
-	V.insert(Sink);
-	if(V.size()%2 == 1){
-		return false;
-	}
-	int Max_flow = max_flow(Source, Sink, V);
-	if((Sink->neighs.size()+Source->neighs.size())/2 == Max_flow){
-		return true;
-	}else return false;
-	if(Max_flow % Sink->neighs.size()==0&&Sink->neighs.size() == Source->neighs.size()){
-		return true;
-	}
-	else return false;
-	return false;
+  Vertex* source = new Vertex;
+  Vertex* sink = new Vertex;
+  unordered_set<Vertex*> V = {source, sink};
+
+  vector<vector<Vertex*>> grid(n/2, vector<Vertex*>(n/2));
+  for (int i = 0; i < n/2; i++) {
+    for (int j = 0; j < n/2; j++) {
+      Vertex* v = new Vertex;
+      grid[i][j] = v;
+      V.insert(v);
+      if ((i+j) % 2 == 0) {
+        // white cell
+        v->weights[sink] = 1;
+        for (int di : {-1, 1}) {
+          for (int dj : {-1, 1}) {
+            int ni = i + di;
+            int nj = j + dj;
+            if (ni >= 0 && ni < n/2 && nj >= 0 && nj < n/2) {
+              Vertex* u = grid[ni][nj];
+              v->neighs.insert(u);
+              v->weights[u] = 1;
+            }
+          }
+        }
+      } else {
+        // black cell
+        v->weights[source] = 1;
+        target_cells--;
+      }
+    }
+  }
+
+  // Check if we already know the answer
+  if (target_cells < 0) {
+    return false;
+  }
+
+  // Add edges from source to white cells and from black cells to sink
+  for (auto& row : grid) {
+    for (Vertex* v : row) {
+      if (v->weights.find(sink) != v->weights.end()) {
+        continue;
+      }
+      if (v->weights.find(source) != v->weights.end()) {
+        continue;
+      }
+      if ((v->neighs.size() % 2) == 0) {
+        // even-degree vertex
+        v->weights[source] = v->weights[sink] = v->neighs.size() / 2;
+      } else {
+        // odd-degree vertex
+        v->weights[source] = (v->neighs.size() - 1) / 2;
+        v->weights[sink] = (v->neighs.size() + 1) / 2;
+      }
+    }
+  }
+
+  // Run max flow and check if it equals total_cells
+  int flow = max_flow(source, sink, V);
+  return flow == total_cells;
 }

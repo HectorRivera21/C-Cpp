@@ -4,6 +4,7 @@
 #include <vector>
 #include "tiling.h"
 #include "tiling.cpp"
+// #include "tiling2.cpp"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ inline void _test(const char* expression, const char* file, int line)
 int main()
 {
 	// Setup
-        srand(2023 + 's');
+    srand(2023 + 's');
 	string floor;
 
 
@@ -27,7 +28,7 @@ int main()
 	floor += "######\n";
 	floor += "#    #\n";
 	floor += "######\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "#######\n";
@@ -39,14 +40,14 @@ int main()
 	floor += "########\n";
 	floor += "#      #\n";
 	floor += "########\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "###\n";
 	floor += "# #\n";
 	floor += "# #\n";
 	floor += "###\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "###\n";
@@ -63,14 +64,14 @@ int main()
 	floor += "# #\n";
 	floor += "# #\n";
 	floor += "###\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "####\n";
 	floor += "#  #\n";
 	floor += "#  #\n";
 	floor += "####\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "####\n";
@@ -84,7 +85,7 @@ int main()
 	floor += "# # #\n";
 	floor += "# # #\n";
 	floor += "#####\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "########\n";
@@ -108,7 +109,7 @@ int main()
 	floor += "##  ##\n";
 	floor += "#  ###\n";
 	floor += "######\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "######\n";
@@ -116,7 +117,7 @@ int main()
 	floor += "#    #\n";
 	floor += "#  # #\n";
 	floor += "######\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "######\n";
@@ -132,7 +133,7 @@ int main()
 	floor += "###  ##\n";
 	floor += "#### ##\n";
 	floor += "#######\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "#######\n";
@@ -148,7 +149,7 @@ int main()
 	floor += "## # ##\n";
 	floor += "##   ##\n";
 	floor += "#######\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "##########\n";
@@ -156,7 +157,7 @@ int main()
 	floor += "#  #  #  #\n";
 	floor += "##      ##\n";
 	floor += "##########\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "#########\n";
@@ -172,7 +173,7 @@ int main()
 	floor += "## #  # ##\n";
 	floor += "##      ##\n";
 	floor += "##########\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "############\n";
@@ -180,7 +181,7 @@ int main()
 	floor += "## # # # # #\n";
 	floor += "#  #   #   #\n";
 	floor += "############\n";
-	// test(has_tiling(floor));
+	test(has_tiling(floor));
 
 	floor = "";
 	floor += "############\n";
