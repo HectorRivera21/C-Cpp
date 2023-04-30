@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <chrono>
 #include "tiling.h"
 #include "tiling.cpp"
 // #include "tiling2.cpp"
@@ -20,6 +21,7 @@ inline void _test(const char* expression, const char* file, int line)
 int main()
 {
 	// Setup
+	auto start = std::chrono::high_resolution_clock::now();
     srand(2023 + 's');
 	string floor;
 
@@ -318,7 +320,9 @@ int main()
         }
 
 
-	cout << "Assignment complete." << endl;
+	auto finish = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = finish-start;   
+	cout << "Assignment complete." << "\ntook: "<<elapsed.count()<<endl;
 }
 
 
