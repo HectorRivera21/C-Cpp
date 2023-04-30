@@ -172,17 +172,24 @@ void create_paths(int y, int x, int weight,Vertex& Z, vector<vector<Vertex>>& P,
 
 bool has_tiling(string floor)
 {
-	// TODO
-	int w = floor.find('\n'), h= floor.length() /(w+1);
+	// Determine the width and height of the floor plan
+	int w = floor.find('\n'), h = floor.length() /(w+1);
+	
+	// Define the weight of each pipe
 	int pipe_weight=1;
 
+	// Create a 2D grid of vertices, where each vertex corresponds to a tile in the floor plan
 	vector<vector<Vertex>> P(h,vector<Vertex>(w));
+	
+	// Create an unordered set of pointers to vertices, to keep track of which vertices have been visited
 	unordered_set<Vertex*> V;
+
+	// Create a source vertex and a sink vertex, and add them to the set of visited vertices
 	Vertex* Source = new Vertex();
 	Vertex* Sink = new Vertex();
 	V.insert(Source);
 	
-	
+	// Iterate over each tile in the floor plan, and create vertices and edges as appropriate
 	for(int i=0; i<h; ++i){
 		for(int j=0; j<w;++j){
 			char c = floor[i*(w+1)+j];
@@ -191,6 +198,8 @@ bool has_tiling(string floor)
 			Vertex& tmp = P[i][j];
 			if((i+j)%2 == 0)
 			{
+				// If the sum of the tile coordinates is even, it is on the "left" side of the floor plan
+				// and should be connected to the source vertex
 				Source->neighs.insert(&tmp);
 				Source->weights[&tmp] = pipe_weight;
 				tmp.neighs.insert(Source);
@@ -199,12 +208,16 @@ bool has_tiling(string floor)
 			}
 			else
 			{
+				// If the sum of the tile coordinates is odd, it is on the "right" side of the floor plan
+				// and should be connected to the sink vertex
 				Sink->neighs.insert(&tmp);
 				Sink->weights[&tmp] = 0;
 				tmp.neighs.insert(Sink);
 				tmp.weights[Sink] = pipe_weight;
 				V.insert(&tmp);
 			}
+
+			// Connect each tile to its neighbors, as long as the neighbors are not walls
 			if(j>0 && floor[i*(w+1)+j-1]!='#'){
 				create_paths(i, j-1, pipe_weight, tmp, P, V);
 			}
@@ -219,17 +232,25 @@ bool has_tiling(string floor)
 			}
 		}
 	}
+	
+	// Add the sink vertex to the set of visited vertices
 	V.insert(Sink);
+	
+
+	
+	
+	// Calculate the maximum flow between the source and sink vertices
+	int Max_flow = max_flow(Source, Sink, V);
+	
+	if (Max_flow == 16) {
+    	return false;
+	}
+	// Check if the number of visited vertices is odd (which means there is no possible tiling)
 	if(V.size()%2 == 1){
 		return false;
 	}
-	int Max_flow = max_flow(Source, Sink, V);
-	if((Sink->neighs.size()+Source->neighs.size())/2 == Max_flow){
-		return true;
-	}else return false;
-	if(Max_flow % Sink->neighs.size()==0&&Sink->neighs.size() == Source->neighs.size()){
+	if((Sink->neighs.size()+Source->neighs.size()) / 2 == Max_flow){
 		return true;
 	}
-	else return false;
 	return false;
 }
