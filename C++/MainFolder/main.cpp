@@ -1,6 +1,8 @@
 #include "Standard.h"
 
 void solve(){
+    int x = 0 ;
+    cin>> x;
     
     bool neg;
 
