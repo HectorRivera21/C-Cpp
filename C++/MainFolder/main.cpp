@@ -16,7 +16,7 @@ void solve(){
         rev = (rev*10)+tmp;
         if((rev - tmp)/10 != prev_rev)
         {
-            return 0;
+            cout<< 0;
         }
         prev_rev = rev;
         x = x /10;
