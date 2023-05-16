@@ -1,30 +1,24 @@
 #include "Standard.h"
+#include <map>
+#include <hash_map>
 
 void solve(){
-    int x = 0 ;
-    cin>> x;
-    
-    bool neg;
+    string s; 
+    cin >> s;
+    unordered_map<char, int> hash;
+    int start = 0, len = 0;
 
-    if(x<0)
-    {
-        neg = true;
-        x= -x;
-    }
-    int32_t rev=0, prev_rev=0;
-
-    while(x!=0){
-        int32_t tmp = x %10;
-        rev = (rev*10)+tmp;
-        if((rev - tmp)/10 != prev_rev)
+    for(int i = 0; i< s.length(); i++){
+        char c = s[i];
+        if(hash.find(c) != hash.end())
         {
-            cout<< 0;
+            if(hash[c] >= start)
+                start = hash[c]+1;
         }
-        prev_rev = rev;
-        x = x /10;
+        len = max(len, i-start+1);
+        hash[c] = i;
     }
-    (neg == true)?-rev:rev;
-    cout<<rev;
+    cout<< len;
 }
 
 int main()
