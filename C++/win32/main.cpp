@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "Standard.h"
 
+
+
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow)
 {
@@ -16,7 +18,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdsho
     CreateWindowW(L"myWindowClass", L"my window", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 100,100, 500, 500,
     NULL, NULL, NULL,NULL);
     MSG msg = {0};
-
 
     while(GetMessage(&msg,NULL,false,false))
     {
