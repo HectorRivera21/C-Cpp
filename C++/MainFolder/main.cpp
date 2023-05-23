@@ -14,7 +14,7 @@
   */
 
 #include "Standard.h"
+#include <ranges>
 int main()
 {
-    
 }
