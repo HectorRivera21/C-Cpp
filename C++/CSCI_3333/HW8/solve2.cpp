@@ -75,7 +75,6 @@ class graph {
             //add a directed edge from b to a 
             add_directed_edged(b,a, weight);
         }
-
         void add_vertex_path(int rows, int cols,vector<int> Real_RC, vector<string>& startEnd){
             string cords = to_string(rows)+","+to_string(cols);
             if (mazeRoutes.find(cords) == mazeRoutes.end()) {
