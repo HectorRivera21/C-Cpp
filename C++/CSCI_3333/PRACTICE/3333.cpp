@@ -344,7 +344,7 @@ int main(){
 
 	long double pi = atan(1)*4;
     
-int main(){	
+
     string A = "cat";
     string B = "tree";
     string C = "catrtee";
