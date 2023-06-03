@@ -1,15 +1,4 @@
-#include <iostream>
-#include <chrono>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-#include <stdio.h>
-#include <algorithm>
-#include <queue>
-#include <math.h>
-#include <utility>
-#include <cstdlib>
+#include <bits/stdc++.h>
 #include "minpriorityqueue.h"
 #include "vertex.h"
 
@@ -192,12 +181,18 @@ inline void _test(const char* expression, const char* file, int line)
     
 //     return solu;
 // }
+#define FPS 30
+#define STR2(x) #x
+#define STR(x) STR2(x)
 
 
 
 int main(){	
 
-	long double pi = atan(1)*4;
+    int x = 23;
+    printf("%s\n", STR(FPS));
+    
+	// long double pi = atan(1)*4;
     
 	//MAZE HW7 STUFF
     // srand(2023 + 's');
