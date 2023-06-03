@@ -2,38 +2,38 @@
 #include "minpriorityqueue.h"
 #include "vertex.h"
 
-inline void _test(const char* expression, const char* file, int line)
-{
-	cerr << "test(" << expression << ") failed in file " << file;
-	cerr << ", line " << line << "." << endl;
-	abort();
-}
-
-#define test(EXPRESSION) ((EXPRESSION) ? (void)0 : _test(#EXPRESSION, __FILE__, __LINE__))
-
-// void D(int n)
+// inline void _test(const char* expression, const char* file, int line)
 // {
-//     int time = 0;
-//     for (int i = 0; i < n; i++)
-//         for (int j = 0; j < i * i; j++)
-//             for (int k = 0; k < j*j; k++)
-//                 time++;
-//     // std::cout<<time<< std::endl;
+// 	cerr << "test(" << expression << ") failed in file " << file;
+// 	cerr << ", line " << line << "." << endl;
+// 	abort();
 // }
-// void ncubed (int n){
-//     int time = 0;
-//     for(int i = 0; i < n;i++)
-//         for(int j=0;j<n;j++)
-//             for(int k = 0; k<n;k++)
-//                 time++;
-// //    std::cout<<time;
-// }
-// void showMap(std::unordered_map<std::string, int> &M){
-//     std::cout<< "num items: "<< M.size()<<std::endl;
-//     std::cout<<"num buckets: "<< M.bucket_count()<<std::endl;
-//     std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
-//     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
-// }
+
+// #define test(EXPRESSION) ((EXPRESSION) ? (void)0 : _test(#EXPRESSION, __FILE__, __LINE__))
+
+// // void D(int n)
+// // {
+// //     int time = 0;
+// //     for (int i = 0; i < n; i++)
+// //         for (int j = 0; j < i * i; j++)
+// //             for (int k = 0; k < j*j; k++)
+// //                 time++;
+// //     // std::cout<<time<< std::endl;
+// // }
+// // void ncubed (int n){
+// //     int time = 0;
+// //     for(int i = 0; i < n;i++)
+// //         for(int j=0;j<n;j++)
+// //             for(int k = 0; k<n;k++)
+// //                 time++;
+// // //    std::cout<<time;
+// // }
+// // void showMap(std::unordered_map<std::string, int> &M){
+// //     std::cout<< "num items: "<< M.size()<<std::endl;
+// //     std::cout<<"num buckets: "<< M.bucket_count()<<std::endl;
+// //     std::cout<<"load factor: "<< (M.load_factor()*100)<<std::endl;
+// //     std:: cout<< "max load: "<< M.max_load_factor()<<std::endl;
+// // }
 
 // int rc[2];
 // unordered_map<string, Vertex*> Routes;
@@ -72,6 +72,42 @@ inline void _test(const char* expression, const char* file, int line)
 // 	return true;
 // }
 
+// int rc[2];
+// unordered_map<string, Vertex*> Routes;
+// unordered_map<Vertex*, Vertex*> breadCrumbs;
+// MinPriorityQueue<Vertex*> Q;
+// void findRowCol(string maze) {
+// 	rc[0] = 0; rc[1] = 0;
+// 	for (int i = 0; i < maze.size() - 1; i++) {//find #of row and col
+// 		if (maze[i] == '\n') {
+// 			rc[1] = i+1;//find # of col
+// 			break;
+// 		}
+// 	}
+// 	rc[0] = (maze.size() / rc[1] ) -1;//#of rows
+// 	rc[1] = rc[1] - 2;//# of columns
+// }
+// void addEdge(string a, string b)
+// {
+// 	Vertex * Aptr = Routes[a];//find object to a vertex create a pointer to it
+// 	Vertex * Bptr = Routes[b];
+
+// 	Aptr->neighs.push_back(Bptr);//add b to the list of a's neighbors
+// 	Bptr->neighs.push_back(Aptr);//add a to the list of b's neighbors
+// }
+// bool inBorder(string maze, int r, int c) {
+// 	if (r == 0 || c == 0 || r == rc[0] || c == rc[1]) {
+// 		return true;
+// 	}
+// 	return false;
+// }
+// bool checkTop(int r, int c) {
+// 	string key = to_string(r-1) + "," + to_string(c);
+// 	if (Routes.find(key) == Routes.end()) {//not a vertex
+// 		return false;
+// 	}
+// 	return true;
+// }
 // bool checkLeft(int r, int c) {
 // 	string key = to_string(r) + "," + to_string(c-1);
 // 	if (Routes.find(key) == Routes.end()) {//not a vertex
@@ -103,6 +139,115 @@ inline void _test(const char* expression, const char* file, int line)
 //     }
 
 // }
+
+// string shortestPath(string* startEnd, string maze){
+//     Vertex* S = Routes[startEnd[0]];
+//     Vertex* D = Routes[startEnd[1]];
+
+//     BFS(startEnd[0]);
+
+//     Vertex* curr = D;
+
+// bool checkLeft(int r, int c) {
+// 	string key = to_string(r) + "," + to_string(c-1);
+// 	if (Routes.find(key) == Routes.end()) {//not a vertex
+// 		return false;
+// 	}
+// 	return true;
+// }
+// void BFS(string s){
+//     queue<Vertex*>Q;
+//     unordered_set<Vertex*> marked;
+    
+//     Vertex* S = Routes[s];
+
+//     marked.insert(S);
+//     Q.push(S);
+
+//     while(!Q.empty()){
+//         Vertex* tmp = Q.front();
+//         Q.pop();
+
+//         for(int i = 0; i< tmp->neighs.size();i++){
+//             Vertex* y = tmp->neighs[i];
+//             if(marked.find(y) == marked.end()){
+//                 marked.insert(y);
+//                 Q.push(y);
+//                 breadCrumbs[y] = tmp;
+//             }
+//         }
+//     }
+
+// }
+//     for(auto x: maze){
+//         if(x == ' '){
+//             if (inBorder(maze, rows, cols) && border==0){
+//                 Vertex* tmp = new Vertex(rows,cols);
+//                 string cords = to_string(rows)+","+to_string(cols);
+//                 Routes[cords] = tmp;
+//                 startEnd[0] = cords;
+//                 Q.push(tmp,0); 
+//                 if(checkTop(rows, cols)){
+//                     string cordsTop = to_string(rows-1)+","+to_string(cols);
+//                     addEdge(cords, cordsTop);
+//                 }
+//                 if(checkLeft(rows, cols)){
+//                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
+//                     addEdge(cords, cordsLeft);
+//                 }
+//                 border++;
+//             }else if(inBorder(maze, rows, cols) && border == 1){
+//                 Vertex* tmp = new Vertex(rows,cols);
+//                 string cords = to_string(rows)+","+to_string(cols); 
+//                 Routes[cords] = tmp;
+//                 startEnd[1] = cords;
+//                 Q.push(tmp,(int)INFINITY);
+//                 if(checkTop(rows, cols)){
+//                     string cordsTop = to_string(rows-1)+","+to_string(cols);
+//                     addEdge(cords, cordsTop);
+//                 }
+//                 if(checkLeft(rows, cols)){
+//                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
+//                     addEdge(cords, cordsLeft);
+//                 }
+//             }
+//             else{
+//                 Vertex* tmp = new Vertex(rows,cols);
+//                 string cords = to_string(rows)+","+to_string(cols);
+//                 Routes[cords] = tmp;
+//                 Q.push(tmp,1);
+//                 if(checkTop(rows, cols)){
+//                     string cordsTop = to_string(rows-1)+","+to_string(cols);
+//                     addEdge(cords, cordsTop);
+//                 }
+//                 if(checkLeft(rows, cols)){
+//                     string cordsLeft = to_string(rows)+","+to_string(cols-1);
+//                     addEdge(cords, cordsLeft);
+//                 }
+//             }
+//         }
+//         if(x == '\n'){rows++;cols = 0;}else{cols++;}
+//     }
+	
+//     solu = shortestPath(startEnd, maze);
+    
+//     return solu;
+// }
+bool isZipper(string A, string B, string C) {
+    int n = A.size(), m = B.size(), l = C.size();
+    if (n + m != l) return false;
+    vector<vector<bool>> dp(n+1, vector<bool>(m+1));
+    dp[0][0] = true;
+    for (int i = 1; i <= n; i++) dp[i][0] = (A[i-1] == C[i-1]) && dp[i-1][0];
+    for (int j = 1; j <= m; j++) dp[0][j] = (B[j-1] == C[j-1]) && dp[0][j-1];
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            dp[i][j] = (A[i-1] == C[i+j-1]) && dp[i-1][j] ||
+                       (B[j-1] == C[i+j-1]) && dp[i][j-1];
+        }
+    }
+    return dp[n][m];
+}
 
 // string shortestPath(string* startEnd, string maze){
 //     Vertex* S = Routes[startEnd[0]];
@@ -194,18 +339,32 @@ int main(){
     
 	// long double pi = atan(1)*4;
     
+
+    string A = "cat";
+    string B = "tree";
+    string C = "catrtee";
+    
+    if(isZipper(A, B, C) == true){
+        cout<<"true";
+    }
+    else{
+        cout<< "false";
+    }
+    
+
+	
 	//MAZE HW7 STUFF
-    // srand(2023 + 's');
-	// string maze, soln;
-	// maze = "";
-	// maze += "##### #\n";
-	// maze += "#     #\n";
-	// maze += "# #####\n";
-	// soln = "";
-	// soln += "#####o#\n";
-	// soln += "#ooooo#\n";
-	// soln += "#o#####\n";
-	// test(solve(maze) == soln);
+    // // srand(2023 + 's');
+	// // string maze, soln;
+	// // maze = "";
+	// // maze += "##### #\n";
+	// // maze += "#     #\n";
+	// // maze += "# #####\n";
+	// // soln = "";
+	// // soln += "#####o#\n";
+	// // soln += "#ooooo#\n";
+	// // soln += "#o#####\n";
+	// // test(solve(maze) == soln);
 	
 	//// MinQ STUFF ideas
     // MinPriorityQueue<int> Q1;
