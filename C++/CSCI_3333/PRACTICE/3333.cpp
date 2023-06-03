@@ -233,21 +233,21 @@
     
 //     return solu;
 // }
-bool isZipper(string A, string B, string C) {
-    int n = A.size(), m = B.size(), l = C.size();
-    if (n + m != l) return false;
-    vector<vector<bool>> dp(n+1, vector<bool>(m+1));
-    dp[0][0] = true;
-    for (int i = 1; i <= n; i++) dp[i][0] = (A[i-1] == C[i-1]) && dp[i-1][0];
-    for (int j = 1; j <= m; j++) dp[0][j] = (B[j-1] == C[j-1]) && dp[0][j-1];
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            dp[i][j] = (A[i-1] == C[i+j-1]) && dp[i-1][j] ||
-                       (B[j-1] == C[i+j-1]) && dp[i][j-1];
-        }
-    }
-    return dp[n][m];
-}
+// bool isZipper(string A, string B, string C) {
+//     int n = A.size(), m = B.size(), l = C.size();
+//     if (n + m != l) return false;
+//     vector<vector<bool>> dp(n+1, vector<bool>(m+1));
+//     dp[0][0] = true;
+//     for (int i = 1; i <= n; i++) dp[i][0] = (A[i-1] == C[i-1]) && dp[i-1][0];
+//     for (int j = 1; j <= m; j++) dp[0][j] = (B[j-1] == C[j-1]) && dp[0][j-1];
+//     for (int i = 1; i <= n; i++) {
+//         for (int j = 1; j <= m; j++) {
+//             dp[i][j] = (A[i-1] == C[i+j-1]) && dp[i-1][j] ||
+//                        (B[j-1] == C[i+j-1]) && dp[i][j-1];
+//         }
+//     }
+//     return dp[n][m];
+// }
 
 // string shortestPath(string* startEnd, string maze){
 //     Vertex* S = Routes[startEnd[0]];
@@ -340,16 +340,16 @@ int main(){
 	// long double pi = atan(1)*4;
     
 
-    string A = "cat";
-    string B = "tree";
-    string C = "catrtee";
+    // string A = "cat";
+    // string B = "tree";
+    // string C = "catrtee";
     
-    if(isZipper(A, B, C) == true){
-        cout<<"true";
-    }
-    else{
-        cout<< "false";
-    }
+    // if(isZipper(A, B, C) == true){
+    //     cout<<"true";
+    // }
+    // else{
+    //     cout<< "false";
+    // }
     
 
 	
