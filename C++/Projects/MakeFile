@@ -1,0 +1,5 @@
+CXX = g++
+CFLAGS = -Wall -Wextra -pedantic -o
+
+all:
+g++ -Wall -Wextra -pedantic -o main main.cpp
