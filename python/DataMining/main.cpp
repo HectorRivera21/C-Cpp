@@ -8,7 +8,7 @@ typedef struct{
     //Class A = 1, Class B = 0;
     std::vector<bool> CLASS;
 }EQ;
-
+///adasdasd
 std::vector<float> cost(EQ a,int* x, int* y)
 {   
     std::vector<float>sum;
