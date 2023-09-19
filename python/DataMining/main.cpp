@@ -1,26 +1,26 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
+#include <stdlib.h>
+#include <vector>
 using namespace std;
 
 typedef struct{
-    std::vector<int> w1;
-    std::vector<int> w2;
-    std::vector<int> w0;
+    vector<int> w1;
+    vector<int> w2;
+    vector<int> w0;
     //Class A = 1, Class B = 0;
-    std::vector<bool> CLASS;
+    vector<bool> CLASS;
 }EQ;
 
 vector<float> cost(EQ a,vector<int> x, vector<int>y)
 {   
-    std::vector<float>sum;
-    auto n = x.size();
-    for(int i = 0; i<3;++i){
+    vector<float>sum;
+    size_t n = x.size();
+    size_t m = a.w1.size();
+    for(int i = 0; i< m;++i){
         float add = 0.0f;
         for(int j = 0; j<n;++j){
-            float top;
-            if(i == 1)
-                top = (x[j]-y[j]+a.w0[i]);
-            else
-                top = (x[j]+y[j]+a.w0[i]);
+            float top = ((a.w1[i]*x[j])+(a.w2[i]*y[j])+a.w0[i]);
             float bot = sqrtf((float)(pow(a.w1[i],2)+pow(a.w2[i],2)));
             float loss = top/bot;
             if(a.CLASS[j] != false && loss < 0 )
