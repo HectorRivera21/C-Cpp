@@ -8,7 +8,7 @@ typedef struct{
     vector<int> w1;
     vector<int> w2;
     vector<int> w0;
-    //Class A = 1, Class B = 0;
+    //Class A = true, Class B = false;
     vector<bool> CLASS;
 }EQ;
 
