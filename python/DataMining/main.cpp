@@ -48,7 +48,7 @@ int main(){
     a.CLASS ={false,false,true,true};
     vector<float>print =  cost(a,x,y);
     for(int i = 0; i<print.size(); ++i){
-        printf("%d. %f\n",i,print[i]);
+        printf("line %d loss = %f\n",i,print[i]);
     }
     return 0;
 }
