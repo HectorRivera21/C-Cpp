@@ -4,6 +4,9 @@
 #include <vector>
 using namespace std;
 
+#define LOG(x) cout<<x;
+#define FACTOR pow(10,5);
+
 typedef struct{
     vector<int> w1;
     vector<int> w2;
@@ -38,7 +41,6 @@ vector<float> cost(EQ a,vector<int> x, vector<int>y)
 }
 
 int main(){
-
     EQ a;
     vector<int> x = {0,3,4,8};
     vector<int> y = {0,3,5,0};
