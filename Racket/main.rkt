@@ -1,0 +1,20 @@
+#lang racket
+
+(define(fib n)
+	(if(or (= n 0) (= n 1))
+		n
+		(+ (fib(- n 1)) (fib(- n 2)))
+	)
+)
+(define (print_fib n)
+  (define (helper current max)
+		(print (fib current))
+    (when (<= current max)
+			(print (fib current))
+    	(display ",")
+    	(helper (+ current 1) max)
+		)
+	)
+  (helper 0 n)
+)
+(print_fib 12)
