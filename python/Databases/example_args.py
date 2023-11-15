@@ -12,4 +12,3 @@ args = parser.parse_args()
 print(args.add)
 print(args.delete)
 print(args.table)
-
