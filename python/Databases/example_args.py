@@ -1,6 +1,7 @@
-import argparse as ap
+import argparse as AP
+import sqlite3 as SQL
 
-parser = ap.ArgumentParser()
+parser = AP.ArgumentParser()
 parser.add_help
 parser.add_argument('--add', action="store_true", default=False, help="add to table")
 parser.add_argument('--delete', action="store_true", default=False, help="delete from table")
