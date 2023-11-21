@@ -48,8 +48,6 @@
   ;; Update game state
   (set! dt (min FRAME (GetFrameTime)))
   (update-square square-pos dt)
-
-  ; Other game logic...
   )
 
 (define (draw-game square-pos)
