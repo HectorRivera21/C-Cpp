@@ -24,7 +24,7 @@
              (body ((style "background-color: black; color: white; text-align: center; font-size: 24px;"))
                    (h1 "Counter App")
                    (form ((method "post"))
-                         (p "Counter value: " ,(number->string (counter)))
+                         (p "Counter value: " ,((counter)))
                          ,(make-button "Increment" "action" "increment")
                          ,(make-button "Decrement" "action" "decrement"))))))
     

@@ -20,5 +20,18 @@ connection = sql.connect('DB/Music.db')
 for i in range(len(Dlist)):
     Dlist[i].to_sql(f'{Tname[i]}', connection, if_exists='replace',index=False)
 
+cur = connection.cursor()
+
+cur.execute('SELECT name FROM Musicians')
+
+rows = cur.fetchall()
+i = 1
+for row in rows:
+    for str in row:
+        print(f'{i}. {str}')
+        if i == len(rows):
+            print(f'Total Musicians: {i}')
+        i+=1
+
 #close connection
 connection.close()
