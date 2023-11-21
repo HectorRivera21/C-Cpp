@@ -9,7 +9,7 @@
 
 (define (initialize-game)
   ;; Initialize game resources and variables here
-  (InitWindow screen-width screen-height "Moonshot")
+  (InitWindow screen-width screen-height "Window Test")
   (SetTargetFPS 60))
 
 (define (cleanup-game)
