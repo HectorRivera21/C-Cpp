@@ -1,3 +1,4 @@
+from numpy import sort
 import pandas as pd
 import sqlite3 as sql
 from concurrent.futures import ThreadPoolExecutor
@@ -12,7 +13,8 @@ AlbumInstrumnet = pd.read_csv('Data/album-instrument.csv')
 
 #list for simplitcity sake
 Dlist = [Musicians, Instruments, Albums, MusicianAlbum, AlbumInstrumnet]
-Tname = ['Musicians', 'Intruments', 'Albums','MusicianAlbum','AlbumInstrumnet']
+Tname = ['Musicians', 'Instruments', 'Albums','MusicianAlbum','AlbumInstruments']
+
 #open DB connection
 connection = sql.connect('DB/Music.db')
 # data to SQLite
@@ -41,9 +43,21 @@ queries = ["SELECT name FROM Musicians", "SELECT name FROM Albums", "SELECT type
 with ThreadPoolExecutor() as executor:
     Data = list(executor.map(fetch_data, queries))
 
-
 totals = [sum(1 for row in dataset) for dataset in Data]
+
 print("Musicans\tAlbums\tInstruments")
+
 for row in zip_longest(*Data, fillvalue=""):
     print("\t ".join(map(str,row)))
+
 print("\t".join(f"Total: {total}"for total in totals))
+
+Data = list(fetch_data("SELECT name FROM Musicians NATURAL JOIN MusicianAlbum"))
+list = []
+
+i = 1
+for item in Data:
+    if item not in list:
+        list.append(item)
+    else:
+        i+=1
