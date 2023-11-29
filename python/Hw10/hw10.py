@@ -80,7 +80,7 @@ print('Your answer should include (bid, counts)')
 Please Write Down Your Query for Q3 Below:
 '''
 
-answer = "SELECT bid FROM boat"
+answer = "SELECT Boat.bid, COUNT(Reserve.bid) AS most_reserved FROM Boat LEFT JOIN Reserve ON Reserve.bid = Boat.bid GROUP BY Boat.bid ORDER BY most_reserved DESC LIMIT 1"
 
 t = cur.execute(answer)
 names = list(map(lambda x: x[0], t.description))
