@@ -60,7 +60,7 @@ print('Your answer should include (sid, counts)')
 Please Write Down Your Query for Q1 Below:
 '''
 
-answer = 'SELECT Sailor.sid, COUNT(Reserve.bid) AS counts FROM Sailor LEFT JOIN Reserve ON Sailor.sid = Reserve.sid GROUP BY Sailor.sid'
+answer = 'SELECT sid, COUNT(bid) AS count FROM Reserve GROUP BY sid'
 
 t = cur.execute(answer)
 
@@ -80,7 +80,7 @@ print('Your answer should include (bid, counts)')
 Please Write Down Your Query for Q3 Below:
 '''
 
-answer = "SELECT Boat.bid, COUNT(Reserve.bid) AS most_reserved FROM Boat LEFT JOIN Reserve ON Reserve.bid = Boat.bid GROUP BY Boat.bid ORDER BY most_reserved DESC LIMIT 1"
+answer = "SELECT bid, COUNT(bid) AS most_reserved FROM Reserve GROUP BY bid ORDER BY most_reserved DESC LIMIT 1"
 
 t = cur.execute(answer)
 names = list(map(lambda x: x[0], t.description))
