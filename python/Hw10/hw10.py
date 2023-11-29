@@ -41,7 +41,7 @@ print('Your answer should include (sname)')
 Please Write Down Your Query for Q1 Below:
 '''
 
-answer = "Your answer goes here"
+answer = "SELECT Sailor.sname FROM Sailor WHERE NOT EXISTS (SELECT Boat.bid FROM Boat WHERE NOT EXISTS(SELECT Reserve.bid FROM Reserve WHERE Reserve.bid = Boat.bid AND Reserve.sid = Sailor.sid))"
 
 
 t = cur.execute(answer)
@@ -58,9 +58,9 @@ print('Q2: For each sailor who previously reserved a boat, find the total number
 print('Your answer should include (sid, counts)')
 '''
 Please Write Down Your Query for Q1 Below:
-'''=
+'''
 
-answer = "Your answer goes here"
+answer = 'SELECT Sailor.sid, COUNT(Reserve.bid) AS counts FROM Sailor LEFT JOIN Reserve ON Sailor.sid = Reserve.sid GROUP BY Sailor.sid'
 
 t = cur.execute(answer)
 
@@ -80,7 +80,7 @@ print('Your answer should include (bid, counts)')
 Please Write Down Your Query for Q3 Below:
 '''
 
-answer = "Your answer goes here"
+answer = "SELECT bid FROM boat"
 
 t = cur.execute(answer)
 names = list(map(lambda x: x[0], t.description))
