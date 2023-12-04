@@ -46,18 +46,15 @@ with ThreadPoolExecutor() as executor:
 totals = [sum(1 for row in dataset) for dataset in Data]
 
 print("Musicans\tAlbums\tInstruments")
+print("----------------------------------------------------------")
 
 for row in zip_longest(*Data, fillvalue=""):
     print("\t ".join(map(str,row)))
-
 print("\t".join(f"Total: {total}"for total in totals))
+print("----------------------------------------------------------\n")
 
-Data = list(fetch_data("SELECT name FROM Musicians NATURAL JOIN MusicianAlbum"))
-list = []
-
-i = 1
-for item in Data:
-    if item not in list:
-        list.append(item)
-    else:
-        i+=1
+Data = fetch_data("SELECT name, count(name)AS total_albums FROM Musicians NATURAL JOIN MusicianAlbum GROUP BY name ORDER BY total_albums DESC")
+print("name\t total_albums")
+print('--------------------')
+for row in Data : print(row)
+print('--------------------')

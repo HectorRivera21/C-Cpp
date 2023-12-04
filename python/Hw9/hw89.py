@@ -5,7 +5,7 @@ print('SQLite version:')
 print(sqlite3.version)
 
 print('Loading the Database')
-con = sqlite3.connect('hw10.db')
+con = sqlite3.connect('hw89.db')
 cur = con.cursor()
 print('Success!')
 print('Print the Whole Dataset:')
@@ -33,15 +33,13 @@ print('--------------------')
 
 
 
+print('Q0: This is an example question. Find the Name of the all Sailors')
 
-print('Q1: Find the name of the sailor who reserved all boats')
-
-print('Your answer should include (sname)')
 '''
-Please Write Down Your Query for Q1 Below:
+Please Write Down Your Query for Q0 Below:
 '''
 
-answer = "SELECT Sailor.sname FROM Sailor WHERE NOT EXISTS (SELECT Boat.bid FROM Boat WHERE NOT EXISTS(SELECT Reserve.bid FROM Reserve WHERE Reserve.bid = Boat.bid AND Reserve.sid = Sailor.sid))"
+answer = "SELECT sname FROM Sailor"
 
 
 t = cur.execute(answer)
@@ -52,18 +50,17 @@ for row in t : print(row)
 print('--------------------')
 
 
-print('Q2: For each sailor who previously reserved a boat, find the total number of boats reserved by he/she')
 
+print('Q1: Find the name of the sailors who is a female')
 
-print('Your answer should include (sid, counts)')
 '''
-Please Write Down Your Query for Q1 Below:
+Please Write Down Your Query for Q1 Below
 '''
 
-answer = 'SELECT sid, COUNT(bid) AS count FROM Reserve GROUP BY sid'
+answer = "SELECT sname FROM Sailor WHERE gender = 'F' "
+
 
 t = cur.execute(answer)
-
 names = list(map(lambda x: x[0], t.description))
 print(names)
 print('--------------------')
@@ -71,19 +68,37 @@ for row in t : print(row)
 print('--------------------')
 
 
+import sqlite3
+import os.path
 
-print('Q3: For the boat that is reserved the most, please return the bid and the counts')
-
-print('Your answer should include (bid, counts)')
+print('Q2: Find the name of the boat which is reserved by at least one female sailor')
 
 '''
-Please Write Down Your Query for Q3 Below:
+Please Write Down Your Query for Q2 Below:
 '''
 
-answer = "SELECT bid, COUNT(bid) AS most_reserved FROM Reserve GROUP BY bid ORDER BY most_reserved DESC LIMIT 1"
+answer = "SELECT bname FROM Boat WHERE EXISTS (SELECT bid FROM Reserve NATURAL JOIN Sailor WHERE Sailor.sid = Reserve.sid AND Boat.bid = Reserve.bid AND Sailor.gender = 'F') "
+
 
 t = cur.execute(answer)
+names = list(map(lambda x: x[0], t.description))
+print(names)
+print('--------------------')
+for row in t : print(row)
+print('--------------------')
 
+
+print('Q3: Find the boat (bid) which is only reserved by male sailors')
+
+
+'''
+Please Write Down Your Query for Q3 Below
+'''
+
+answer = "SELECT bid FROM Boat WHERE NOT EXISTS (SELECT bid FROM Reserve NATURAL JOIN Sailor WHERE Sailor.sid = Reserve.sid AND Boat.bid = Reserve.bid AND Sailor.gender = 'F')"
+
+
+t = cur.execute(answer)
 names = list(map(lambda x: x[0], t.description))
 print(names)
 print('--------------------')
