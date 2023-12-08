@@ -59,5 +59,6 @@
   "files.associations": {
     "iostream": "cpp"
   },
-  "python.analysis.autoImportCompletions": true
+  "python.analysis.autoImportCompletions": true,
+  "editor.inlineSuggest.showToolbar": "always"
 }

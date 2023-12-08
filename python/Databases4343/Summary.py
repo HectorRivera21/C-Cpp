@@ -4,7 +4,16 @@ import sqlite3 as sql
 from concurrent.futures import ThreadPoolExecutor
 from itertools import zip_longest
 
-#taDataClean extraction
+#func to retrieve data from DB using queries supplied
+def fetch_data(query):
+    connection = sql.connect("DB/Music.db")
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = cursor.fetchall()
+    connection.close()
+    return data
+
+#DataClean extraction
 Musicians = pd.read_csv('Data/musician.csv')
 MusicianAlbum = pd.read_csv('Data/musician-album.csv')
 Instruments = pd.read_csv('Data/instrument.csv')
@@ -25,16 +34,6 @@ for i in range(len(Dlist)):
     Dlist[i].to_sql(f'{Tname[i]}', connection, if_exists='replace',index=False)
 #close the connection
 connection.close()
-
-
-#func to retrieve data from DB using queries supplied
-def fetch_data(query):
-    connection = sql.connect("DB/Music.db")
-    cursor = connection.cursor()
-    cursor.execute(query)
-    data = cursor.fetchall()
-    connection.close()
-    return data
 
 #list of queries i want to use
 queries = ["SELECT name FROM Musicians", "SELECT name FROM Albums", "SELECT type FROM Instruments"]
