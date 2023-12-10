@@ -1,24 +1,48 @@
 import argparse as ap
 import sqlite3 as sql
 import sys
-import re
 
-def is_valid_record_format(argument):
-    pattern = r'^[A-Z]+,\d+,\d{4},[A-Z]{2}$'
-    return re.match(pattern, argument) is not None
-    
-def add_Record(arg):
+def fetch_cols(table):
     con = sql.connect('DB/Music.db')
-    con.cursor().execute(f'INSERT INTO {arg.table}')
-    con.commit
+    cur = con.cursor()
+    cur.execute(f'PRAGMA table_info({table})')
+    data = cur.fetchall()
     con.close()
-    
+    return data
+def primary_key(arg):
+    col = fetch_cols(arg.table)
+    columns = [cols[1] for cols in col]
+    for i in range(len(columns)):
+        if columns[i] == "id":
+            return i
+        elif columns[i] == "ssn":
+            return i
 
-def delete_Record(arg):   
+def update(arg):
+    col_info = fetch_cols(arg.table)
+    columns = [cols[1] for cols in col_info]
+
+    col = ', '.join(columns)
+    values = ', '.join('?' for _ in columns)
+
+    record = tuple(arg.record.split(','))
+    prime_key_index = primary_key(arg)
+  
     con = sql.connect('DB/Music.db')
-    con.cursor().execute('')
-    con.commit()
-    con.close()
+    cursor = con.cursor()
+
+    if arg.add:
+        cursor.execute(f'INSERT INTO {arg.table} ({col}) VALUES ({values})',record)
+        con.commit()
+        con.close()
+        sys.exit(f'added: {arg.record} to Table: {arg.table}')
+    if arg.delete:
+        if prime_key_index is not None:
+            cursor.execute(f'DELETE FROM {arg.table} WHERE {columns[prime_key_index]} = ?', (record[prime_key_index],))
+            con.commit()
+            con.close()
+            sys.exit(f'deleted: {args.record} from Table: {args.table}')
+    
     
 parser = ap.ArgumentParser()
 parser.add_help
@@ -32,15 +56,7 @@ args = parser.parse_args()
 
 if args.add and args.delete:
     sys.exit('Too many arguments. Choose either --add or --delete.')
+elif not args.add and not args.delete:
+    sys.exit('No arguments provided. Choose either --add or --delete.')
 ##########
-if args.add:
-    if not is_valid_record_format(args.record):
-        sys.exit(f'wrong format {args.record}')
-    add_Record(args)
-    sys.exit(f'added: {args.record} to Table: {args.table}')
-##########
-if args.delete:
-    if not is_valid_record_format(args.record):
-        sys.exit(f'wrong format {args.record}')
-    delete_Record(args)
-    sys.exit(f'deleted: {args.record} from Table: {args.table}')
+update(args)
