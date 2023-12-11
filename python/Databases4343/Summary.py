@@ -2,9 +2,11 @@ import sqlite3 as sql
 from concurrent.futures import ThreadPoolExecutor
 from itertools import zip_longest
 
+DB = 'DB/Music.db'
+
 #func to retrieve data from DB using queries supplied
 def fetch_data(query):
-    connection = sql.connect("DB/Music.db")
+    connection = sql.connect(DB)
     cursor = connection.cursor()
     cursor.execute(query)
     data = cursor.fetchall()

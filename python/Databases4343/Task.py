@@ -1,8 +1,10 @@
 import pandas as pd
 import sqlite3 as sql
 
+DB = 'DB/Music.db'
+
 def createtables():
-    connection = sql.connect('DB/Music.db')
+    connection = sql.connect(DB)
     cursor = connection.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "Musicians" (
@@ -52,8 +54,8 @@ def createtables():
     connection.commit()
     connection.close()
 
-def insert_dataframes_into_sqlite(dataframes, table_names):
-    connection = sql.connect('DB/Music.db')
+def insert_data_sqlite(dataframes, table_names):
+    connection = sql.connect(DB)
 
     for i, dataframe in enumerate(dataframes):
         dataframe.columns = dataframe.columns.str.strip()
@@ -75,4 +77,4 @@ Tname = ['Musicians', 'Instruments', 'Albums', 'MusicianAlbum', 'AlbumInstrument
 createtables()
 
 # Insert data into SQLite without affecting constraints
-insert_dataframes_into_sqlite(Dlist, Tname)
+insert_data_sqlite(Dlist, Tname)

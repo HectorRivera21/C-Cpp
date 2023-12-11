@@ -2,8 +2,10 @@ import argparse as ap
 import sqlite3 as sql
 import sys
 
+DB = 'DB/Music.db'
+
 def fetch_cols(table):
-    con = sql.connect('DB/Music.db')
+    con = sql.connect(DB)
     cur = con.cursor()
     cur.execute(f'PRAGMA table_info({table})')
     data = cur.fetchall()
@@ -28,7 +30,7 @@ def update(arg):
     record = tuple(arg.record.split(','))
     prime_key_index = primary_key(arg)
   
-    con = sql.connect('DB/Music.db')
+    con = sql.connect(DB)
     cursor = con.cursor()
 
     if arg.add:
@@ -50,7 +52,7 @@ parser.add_argument('--add', action="store_true", default=False, help="add to ta
 parser.add_argument('--delete', action="store_true", default=False, help="delete from table")
     
 parser.add_argument('--table', type=str, default='', help="target table")
-parser.add_argument('--record', type=str, default='', help="Info to be added/deleted \n 'data,adat,atad,dadw' ")
+parser.add_argument('--record', type=str, default='', help="Info to be added/deleted must use ',' to seperate the data")
 
 args = parser.parse_args()
 
