@@ -35,14 +35,14 @@ def update(arg):
         cursor.execute(f'INSERT INTO {arg.table} ({col}) VALUES ({values})',record)
         con.commit()
         con.close()
-        sys.exit(f'added: {arg.record} to Table: {arg.table}')
+        sys.exit(f'Added: {arg.record} to Table: {arg.table}')
+
     if arg.delete:
         if prime_key_index is not None:
             cursor.execute(f'DELETE FROM {arg.table} WHERE {columns[prime_key_index]} = ?', (record[prime_key_index],))
             con.commit()
             con.close()
-            sys.exit(f'deleted: {args.record} from Table: {args.table}')
-    
+            sys.exit(f'Deleted: {args.record} from Table: {args.table}')
     
 parser = ap.ArgumentParser()
 parser.add_help
