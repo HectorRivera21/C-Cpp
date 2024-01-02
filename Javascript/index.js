@@ -30,23 +30,24 @@ app.get("/api/", (req, res) =>{
 app.get("/api/:date", (req, res) =>{
 
   let date = req.params["date"];
-  var newDate = 0;
+  var newDate = "";
   var timestamp = 0;
-  if(date<100){
+  if(/\d{5,}/.test(date)){
+    newDate = new Date(date-0).toUTCString();
+    timestamp = (date-0);
+  }
+  else 
+  {
     newDate = new Date(date).toUTCString();
     timestamp  = Date.parse(date);
   }
-  else 
-  {
-    newDate = new Date(date-0).toUTCString();
-    timestamp = date-0;
-  }
-  if(newDate != "Invalid Date"){
-    res.json({unix:timestamp, utc: newDate});
-  }
-  else 
-  {
+  
+  if(newDate === "Invalid Date"){
     res.json({error:"Invalid Date"})
+  }
+  else 
+  {
+    res.json({unix:timestamp, utc: newDate});
   }
 });
 
