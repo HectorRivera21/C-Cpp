@@ -33,8 +33,9 @@ app.get("/api/:date", (req, res) =>{
   var newDate = "";
   var timestamp = 0;
   if(/\d{5,}/.test(date)){
-    newDate = new Date(date-0).toUTCString();
-    timestamp = (date-0);
+    date = parseInt(date);
+    newDate = new Date(date).toUTCString();
+    timestamp = (date);
   }
   else 
   {
