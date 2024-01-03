@@ -22,10 +22,10 @@ app.get('/', function (req, res) {
 // your first API endpoint...
 app.get('/api/whoami', function (req, res) {
   const forwarded = req.headers['x-forwarded-for'];
-  const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress;
-  const language = req.headers['accept-language'];
-  const software = req.headers['user-agent'];
-  res.json({ipaddress:ip,language:language,software:software });
+  // const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress;
+  // const language = req.headers['accept-language'];
+  // const software = req.headers['user-agent'];
+  res.json({ipaddress:req.connection.remoteAddress,language:req.headers['accept-language'],software:req.headers['user-agent'] });
 });
 
 // listen for requests :)
