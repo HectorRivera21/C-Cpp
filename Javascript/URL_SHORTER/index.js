@@ -15,7 +15,15 @@ String.prototype.hashCode = function() {
     hash = ((hash << 5) - hash) + chr;
     hash |= 0; // Convert to 32bit integer
   }
-  return hash;
+  return hash/1000;
+}
+const isValidHttpUrl = (string) =>{
+  try {
+    const newUrl = new URL(string);
+    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+  } catch (err) {
+    return false;
+  }
 }
 
 // Basic Configuration
@@ -35,15 +43,13 @@ app.use(bodyParser.json());
 app.use(urlencoded({extended:true}));
 app.post('/api/shorturl', function(req, res) {
   let url = req.body.url;
-  console.log(db);
-  try {
-    new URL(url);
+  if(!isValidHttpUrl(url)){
+    res.json({error:"invalid url"});
+  }
+  else{
     let short_url = url.hashCode();
     db[short_url]=url;
-    console.log(db);
     res.json({original_url: url, short_url:short_url});
-  }catch(e){
-    res.json({error:"Invalid URL"});
   }
 });
 
