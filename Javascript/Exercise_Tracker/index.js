@@ -1,36 +1,35 @@
-const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
 
 const ExerciseSchema = new Schema({
-  username: {type: String, required: true},
+  username: { type: String, required: true },
   description: String,
   duration: Number,
-  date: {type: Date, default: Date.now()},
+  date: { type: Date, default: Date.now() },
 });
 
 const Exercise = Model("Exercise", ExerciseSchema);
 
 const UserSchema = new Schema({
-  username: {type:String, required: true,unique: true,}
+  username: { type: String, required: true, unique: true, }
 });
 const User = Model("User", UserSchema);
 
 const LogSchema = new Schema({
-  username: {type: String, required:true},
+  username: { type: String, required: true },
   count: Number,
   log: [{
     description: String,
     duration: Number,
-    date: {type: Date, default: Date.now()}, 
+    date: { type: Date, default: Date.now() },
   }],
 });
 
@@ -49,7 +48,7 @@ async function CreateUser(Username) {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(express.static('public'))
 
@@ -58,9 +57,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/users', (req, res) => {
-  User.find({}).select({_id:1, username:1}).exec((err,data)=>{
-    if(err) return res.json({error: err});
-    res.json({Users: data});
+  User.find({}).select({ _id: 1, username: 1 }).exec((err, data) => {
+    if (err) return res.json({ error: err });
+    res.json({ Users: data });
   });
 });
 app.post('/api/users', async (req, res) => {
