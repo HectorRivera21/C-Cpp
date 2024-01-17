@@ -5,32 +5,33 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
 
 const ExerciseSchema = new Schema({
-  username: {type: String, required: true},
+  _id: String,
+  username: { type: String, required: true },
   description: String,
   duration: Number,
-  date: {type: Date, default: Date.now()},
+  date: { type: Date, default: Date.now() },
 });
 
 const Exercise = Model("Exercise", ExerciseSchema);
 
 const UserSchema = new Schema({
-  username: {type:String, required: true,unique: true,}
+  username: { type: String, required: true, unique: true, }
 });
 const User = Model("User", UserSchema);
 
 const LogSchema = new Schema({
-  username: {type: String, required:true},
+  username: { type: String, required: true },
   count: Number,
   log: [{
-    description: String,
+    descriptio: String,
     duration: Number,
-    date: {type: Date, default: Date.now()}, 
+    date: { type: Date, default: Date.now() },
   }],
 });
 
@@ -49,7 +50,7 @@ async function CreateUser(Username) {
 }
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(express.static('public'))
 
@@ -57,11 +58,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-app.get('/api/users', (req, res) => {
-  User.find({}).select({_id:1, username:1}).exec((err,data)=>{
-    if(err) return res.json({error: err});
-    res.json({Users: data});
-  });
+app.get('/api/users', async (req, res) => {
+  const users = await User.find({}).select({ _id: 1, username: 1 });
+  res.json(users);
 });
 app.post('/api/users', async (req, res) => {
   const user = req.body.username;
@@ -84,9 +83,11 @@ app.post('/api/users', async (req, res) => {
     res.json({ error: err.message });
   }
 });
-app.post('/api/users/:_id/exercises', (req, res) => {
+app.post('/api/users/:_id/exercises', async (req, res) => {
+  res.send("hello from post exercises");
 });
 app.get('/api/users/:_id/logs', (req, res) => {
+  res.send("hello from post log");
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {
