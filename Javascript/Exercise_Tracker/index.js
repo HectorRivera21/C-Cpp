@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
 const Model = mongoose.model;
 
 const ExerciseSchema = new Schema({
-  username: {type: String, required: true},
+  username: { type: String, required: true },
   description: String,
   duration: Number,
   date: { type: Date, default: Date.now() },

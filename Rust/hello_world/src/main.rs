@@ -1,7 +1,15 @@
-use std::collections::HashMap;
 
-pub fn longest_common_prefix(strs: Vec<String>) -> String {}
+mod ownerborrow;
 
-fn main() {
-    longest_common_prefix(vec!["flower", "flew", "fly"])
+fn main(){
+
+    let name = "Not provided";
+    let course = "Not Provided";
+
+    println!("Assignment: Ownership and Borrowing in Rust");
+    println!("{}",name);
+    println!("{}",course);
+
+
+
 }
