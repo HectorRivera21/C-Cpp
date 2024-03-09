@@ -1,9 +1,0 @@
-C:\Users\hecto\Desktop\coding\C-Cpp\Rust\http_server\target\debug\deps\libserde_path_to_error-49d7328bda794a38.rmeta: C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\lib.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\de.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\path.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\ser.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\wrap.rs
-
-C:\Users\hecto\Desktop\coding\C-Cpp\Rust\http_server\target\debug\deps\serde_path_to_error-49d7328bda794a38.d: C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\lib.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\de.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\path.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\ser.rs C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\wrap.rs
-
-C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\lib.rs:
-C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\de.rs:
-C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\path.rs:
-C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\ser.rs:
-C:\Users\hecto\.cargo\registry\src\index.crates.io-6f17d22bba15001f\serde_path_to_error-0.1.15\src\wrap.rs:
