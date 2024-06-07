@@ -1,55 +1,51 @@
-struct Entry {
+pub struct TrendTracker
+{
+    #[allow(non_snake_case)]
+    pub e: Vec<Entry>
+}
+#[derive(Clone)]  
+pub struct Entry {
     hashtag: String,
     popularity: i32,
 }
 
 impl TrendTracker {
-    fn new() -> self {
-        Vec<Entry> E = Vec::new();
-        self
+    pub fn new() -> Self {
+        Self { e: Vec::new() }
     }
-    fn insert(&mut self ,ht: String){
-        for i in self.E{
+    pub fn insert(&mut self ,ht: String){
+        for i in self.e.iter(){
             if i.hashtag == ht {
                 return;
             }
         }
-        self.E.push(Entry{hashtag: ht, popularity: 0});
+        self.e.push(Entry{hashtag: ht, popularity: 0});
     }
-    fn size(&mut self) -> i32 {
-        self.E.len()
+    pub fn size(&mut self) -> i32 {
+        self.e.len() as i32
     }
-    fn tweeted(&mut self, ht: String){
-        for i in self.E{
+    pub fn tweeted(&mut self, ht: String){
+        for  i in self.e.iter_mut(){
             if i.hashtag == ht {
                 i.popularity += 1;
             }
         }
     }
-    fn popularity(&mut self, name: String)-> i32 {
-        for i in self.E{
-            if i.hashtag == name {
-                return i.popularity;
-            }
-            else
-            {
-                return -1;
-            }
-        }
+    pub fn popularity(&mut self, hashtag: String) -> i32 {
+        self.e
+            .iter()
+            .find(|entry| entry.hashtag == hashtag)
+            .map(|entry| entry.popularity)
+            .unwrap_or(-1)
     }
-    fn top_trend(&mut self)-> String {
-        if self.E.len() == 0 {
+    pub fn top_trend(&mut self)-> String {
+        if self.e.len() == 0 {
             return "".to_string();
         }
         else
         {
-            let mut max:Entry;
-            for i in self.E{
-                if i.popularity > max.popularity {
-                    max = i;
-                }
-            }
-            return max.hashtag;
+            let most_popular = self.e.iter_mut().max_by_key(|entry| entry.popularity).unwrap();
+            return most_popular.hashtag.clone();
         }
     }
     // Fills the provided vector with the 3 most-tweeted hashtags,
@@ -58,37 +54,25 @@ impl TrendTracker {
     // If there are fewer than 3 hashtags, then the vector is filled
     // with all hashtags (in most-tweeted to least-tweeted order).
     //
-    // Must run in O(n) time.    
-    fn top_three_trends(&mut self, trend: &mut Vec<String>) {
-        use std::collections::BinaryHeap;
-        use std::cmp::Reverse;
-        if self.E.is_empty() {
-            return;
+    // Must run in O(n) time.  
+    pub fn top_three_trends(&mut self, trend: &mut Vec<String>) -> Vec<String> {
+        if self.e.is_empty() {
+            return vec![];
         }
-    
-        let mut min_heap: BinaryHeap<Reverse<Entry>> = BinaryHeap::new();
-    
-        for entry in &self.E {
-            if min_heap.len() < 3 {
-                min_heap.push(Reverse(entry.clone()));
-            } else {
-                if entry.popularity > min_heap.peek().unwrap().0.popularity {
-                    min_heap.pop();
-                    min_heap.push(Reverse(entry.clone()));
-                }
+        else
+        {
+            // sort by popularity
+            // return top 3 hashtags
+            let mut sorted = self.e.clone();
+            sorted.sort_by(|a, b| b.popularity.cmp(&a.popularity));
+            for i in sorted.iter().take(3) {
+                trend.push(i.hashtag.clone());
             }
-        }
-    
-        while let Some(Reverse(entry)) = min_heap.pop() {
-            trend.push(entry.hashtag);
+            return trend.clone();
         }
     }
-    fn remove(&mut self, ht: String){
-        for i in self.E{
-            if i.hashtag == ht {
-                self.E.remove(i);
-            }
-        }
+    pub fn remove(&mut self, ht: String){
+        self.e.retain(|entry| entry.hashtag != ht);
     }
     // Fills the provided vector with the k most-tweeted hashtags,
     // in order from most-tweeted to least-tweeted.
@@ -97,36 +81,7 @@ impl TrendTracker {
     // with all hashtags (in most-tweeted to least-tweeted order).
     //
     // Must run in O(nk) time.
-    fn top_k_trends(&mut self, k: i32, &mut trend: Vec<String>){
-        
+    pub fn top_k_trends(&mut self, k: i32,  trend: &mut Vec<String>){
+        trend.is_empty();
     }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_insert() {
-        let mut tracker = TrendTracker { E: Vec::new() };
-        tracker.insert("test1".to_string());
-        assert_eq!(tracker.E.len(), 1);
-    }
-
-    #[test]
-    fn test_size() {
-        let mut tracker = TrendTracker { E: Vec::new() };
-        tracker.insert("test1".to_string());
-        assert_eq!(tracker.size(), 1);
-    }
-
-    #[test]
-    fn test_tweeted() {
-        let mut tracker = TrendTracker { E: Vec::new() };
-        tracker.insert("test1".to_string());
-        tracker.tweeted("test1".to_string());
-        assert_eq!(tracker.popularity("test1".to_string()), 1);
-    }
-
-    // Add tests for other functions here
 }

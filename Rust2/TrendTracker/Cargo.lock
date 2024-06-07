@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "TrendTracker"
+name = "trend_tracker"
 version = "0.1.0"
